@@ -6,25 +6,25 @@ const Contact = () => {
         {
             name: "LinkedIn",
             icon: <FaLinkedin className="text-2xl" />,
-            url: "https://linkedin.com/in/tu-usuario",
+            url: "https://www.linkedin.com/in/santiago-martin-herrera/",
             color: "hover:text-blue-500"
         },
         {
             name: "GitHub",
             icon: <FaGithub className="text-2xl" />,
-            url: "https://github.com/tu-usuario",
+            url: "https://github.com/Santiagoh99",
             color: "hover:text-gray-400"
         },
         {
             name: "Instagram",
             icon: <FaInstagram className="text-2xl" />,
-            url: "https://instagram.com/tu-usuario",
+            url: "https://www.instagram.com/_santiherreraa/",
             color: "hover:text-pink-500"
         },
         {
             name: "Email",
             icon: <FaEnvelope className="text-2xl" />,
-            url: "mailto:tu-email@example.com",
+            url: "mailto:santiherrera99@icloud.com",
             color: "hover:text-red-500"
         }
     ];
@@ -38,10 +38,7 @@ const Contact = () => {
         >
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold mb-4">Let's Connect</h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto">
-                        Feel free to reach out for collaborations or just a friendly hello
-                    </p>
+                    <h2 className="text-4xl font-bold mb-4">Contact me</h2>
                 </div>
 
                 <div className="flex justify-center items-center space-x-8">

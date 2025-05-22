@@ -1,7 +1,6 @@
 import React from "react";
 import Hero from "../components/Hero";
 import Experience from "../components/Experience";
-import Skills from "../components/Skills";
 import Contact from "../components/Contacts";
 
 function Home() {

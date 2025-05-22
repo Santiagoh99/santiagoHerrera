@@ -1,10 +1,10 @@
-import ecommerce3 from "../img/ecommerce3.mp4"
-import enterprice2 from "../img/enterprice2.mp4"
-import enterprice4 from "../img/enterprice4.mp4"
-import enterprice3 from "../img/enterprice3.mp4"
-import enterprice1 from "../img/enterprice1.mp4"
-import tradingApp from "../img/enterprice3.mp4"
-import bankingApp from "../img/enterprice3.mp4"
+import KOSIUKO from "../img/ecommerce3.mp4"
+import ALTIORA from "../img/enterprice2.mp4"
+import NONSTOP from "../img/enterprice4.mp4"
+import FARMAGRAM from "../img/enterprice3.mp4"
+import FARMAGRAM1 from "../img/enterprice1.mp4"
+import tradingApp from "../img/enterprice3.mp4"//credit
+import bankingApp from "../img/enterprice3.mp4"//credit
 import ecklypceImg from "../img/ecklypce.jpg"
 import pilchaImg from "../img/pilcha.jpg"
 
@@ -32,7 +32,7 @@ export const projects = [
             },
             {
                 title: "Wholesale Fashion",
-                film: ecommerce3,
+                film: KOSIUKO,
                 desc: "wholesale clothing platform, internal to the company"
             }
         ]
@@ -59,22 +59,22 @@ export const projects = [
         projects: [
             {
                 title: "Production Dashboard",
-                film: enterprice2,
+                film: ALTIORA,
                 desc: "Manufacturing control interface"
             },
             {
                 title: "Quality Control",
-                film: enterprice1,
+                film: FARMAGRAM1,
                 desc: "Quality tracking dashboard"
             },
             {
                 title: "Billing Interface",
-                film: enterprice3,
+                film: FARMAGRAM,
                 desc: "Invoice management system"
             },
             {
                 title: "CRM Dashboard",
-                film: enterprice4,
+                film: NONSTOP,
                 desc: "Client management interface"
             }
         ]
