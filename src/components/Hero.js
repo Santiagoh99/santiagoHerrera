@@ -23,7 +23,7 @@ const Hero = () => {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.3 }}
                     >
-                        <span className="text-blue-400 text-sm font-semibold tracking-widest uppercase">Soluciones Informáticas Profesionales</span>
+                        <span className="text-blue-400 text-sm font-semibold tracking-widest uppercase">Full Stack Software Engineer</span>
                     </motion.div>
 
                     <motion.h1 
@@ -32,7 +32,7 @@ const Hero = () => {
                         transition={{ duration: 0.5, delay: 0.4 }}
                         className="text-5xl md:text-6xl font-bold leading-tight"
                     >
-                        Optimiza tu Negocio con <span className="text-blue-500">Tecnología</span>
+                        I Develop Scalable <span className="text-blue-500">Digital Solutions</span>
                     </motion.h1>
 
                     <motion.p 
@@ -41,7 +41,7 @@ const Hero = () => {
                         transition={{ duration: 0.5, delay: 0.5 }}
                         className="text-xl text-gray-300 max-w-2xl"
                     >
-                        Gestión de Stock, Gestión de Turnos y Páginas Web profesionales. Soluciones personalizadas para hacer crecer tu empresa.
+                        I specialize in modern web and mobile technologies. I create high-quality applications using best practices and innovative approaches.
                     </motion.p>
 
                     <motion.div 
@@ -51,16 +51,16 @@ const Hero = () => {
                         className="flex flex-col sm:flex-row gap-4 pt-4"
                     >
                         <Link 
-                            to="/servicios"
+                            to="/portafolio"
                             className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
                         >
-                            Ver Servicios <FaArrowRight size={16} />
+                            View My Work <FaArrowRight size={16} />
                         </Link>
                         <Link 
                             to="/contacto"
                             className="inline-flex items-center justify-center px-8 py-3 border-2 border-blue-500 text-blue-400 hover:bg-blue-500/10 font-semibold rounded-lg transition-colors"
                         >
-                            Contactar Ahora
+                            Get In Touch
                         </Link>
                     </motion.div>
                 </motion.div>

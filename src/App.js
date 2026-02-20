@@ -5,7 +5,6 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Portfolio from "./pages/Portfolio";
-import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -17,7 +16,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/servicios" element={<Services />} />
         <Route path="/portafolio" element={<Portfolio />} />
-        <Route path="/sobre-mi" element={<About />} />
         <Route path="/contacto" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -20,7 +20,6 @@ function Navbar() {
         { path: "/", label: "Inicio" },
         { path: "/servicios", label: "Servicios" },
         { path: "/portafolio", label: "Portafolio" },
-        { path: "/sobre-mi", label: "Sobre Mí" },
         { path: "/contacto", label: "Contacto" }
     ];
 
