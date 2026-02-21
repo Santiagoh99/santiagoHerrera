@@ -2,28 +2,27 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { projects } from "./proyect";
 import { FaInstagram, FaGithub, FaExternalLinkAlt, FaTimes } from "react-icons/fa";
+import { isValidUrl, safeExternalLinkAttrs } from "../utils/security";
 
 const Experience = () => {
     const [selectedImage, setSelectedImage] = useState(null);
 
     const SocialLinks = ({ links }) => (
         <div className="flex gap-3">
-            {links.web && (
+            {links.web && isValidUrl(links.web) && (
                 <a 
                     href={links.web}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...safeExternalLinkAttrs}
                     className="inline-flex items-center gap-2 px-3 py-1 bg-blue-600/20 hover:bg-blue-600/40 text-blue-400 rounded text-xs font-semibold transition-colors"
                 >
                     {links.web.includes('github') ? <FaGithub /> : <FaExternalLinkAlt />}
                     {links.web.includes('github') ? 'GitHub' : 'Visit'}
                 </a>
             )}
-            {links.instagram && (
+            {links.instagram && isValidUrl(links.instagram) && (
                 <a 
                     href={links.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...safeExternalLinkAttrs}
                     className="inline-flex items-center gap-2 px-3 py-1 bg-pink-600/20 hover:bg-pink-600/40 text-pink-400 rounded text-xs font-semibold transition-colors"
                 >
                     <FaInstagram />

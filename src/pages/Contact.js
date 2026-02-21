@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaCheckCircle } from "react-icons/fa";
+import { sanitizeFormData, isValidEmail } from "../utils/security";
 
 function Contact() {
     const [formData, setFormData] = useState({
@@ -9,18 +10,45 @@ function Contact() {
         message: ""
     });
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState("");
 
     const handleChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
+        setError("");
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Enviar email
-        const mailtoLink = `mailto:santiagomh1999@gmail.com?subject=New%20Message&body=Name:%20${formData.name}%0AEmail:%20${formData.email}%0A%0AMessage:%0A${formData.message}`;
+        
+        // Validate form data
+        if (!formData.name.trim()) {
+            setError("Name is required");
+            return;
+        }
+        
+        if (!isValidEmail(formData.email)) {
+            setError("Valid email is required");
+            return;
+        }
+        
+        if (!formData.message.trim() || formData.message.trim().length < 10) {
+            setError("Message must be at least 10 characters");
+            return;
+        }
+        
+        // Sanitize data
+        const sanitized = sanitizeFormData(formData);
+        
+        // Create safe mailto link with encoded parameters
+        const params = new URLSearchParams({
+            subject: "New Message",
+            body: `Name: ${sanitized.name}\nEmail: ${sanitized.email}\n\nMessage:\n${sanitized.message}`
+        });
+        
+        const mailtoLink = `mailto:santiagomh1999@gmail.com?${params.toString()}`;
         window.location.href = mailtoLink;
         
         setSubmitted(true);
@@ -55,6 +83,16 @@ function Contact() {
                             >
                                 <FaCheckCircle className="text-green-400 text-xl" />
                                 <span className="text-green-400">Message sent! I'll get back to you soon.</span>
+                            </motion.div>
+                        )}
+
+                        {error && (
+                            <motion.div 
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg"
+                            >
+                                <span className="text-red-400">{error}</span>
                             </motion.div>
                         )}
 
