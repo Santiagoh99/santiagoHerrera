@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
@@ -16,9 +18,13 @@ function Navbar() {
 
     const navLinks = [
         { path: "/", label: "Home" },
-        { path: "/about", label: "About" },
-        { path: "/project", label: "Projects" }
+        { path: "/portfolio", label: "Portfolio" },
+        { path: "/contact", label: "Contact" }
     ];
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     return (
         <motion.nav
@@ -27,7 +33,7 @@ function Navbar() {
             className={`fixed w-full z-50 transition-all duration-300 ${
                 isScrolled 
                 ? 'bg-gray-900/95 backdrop-blur-sm shadow-lg' 
-                : 'bg-transparent'
+                : 'bg-gray-900/80 backdrop-blur-sm'
             }`}
         >
             <div className="container mx-auto px-4">
@@ -39,13 +45,13 @@ function Navbar() {
                     >
                         <Link 
                             to="/" 
-                            className="text-blue-500 font-bold text-xl"
+                            className="text-blue-500 font-bold text-xl hover:text-blue-400 transition-colors"
                         >
-                            Santiago Herrera
+                            TechGest
                         </Link>
                     </motion.div>
 
-                    <div className="flex space-x-8">
+                    <div className="hidden md:flex space-x-8">
                         {navLinks.map((link, index) => (
                             <motion.div
                                 key={link.path}
@@ -73,7 +79,37 @@ function Navbar() {
                             </motion.div>
                         ))}
                     </div>
+
+                    <button 
+                        onClick={toggleMenu}
+                        className="md:hidden text-white text-xl"
+                    >
+                        {isMenuOpen ? <FaTimes /> : <FaBars />}
+                    </button>
                 </div>
+
+                {isMenuOpen && (
+                    <motion.div 
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="md:hidden pb-4 bg-gray-800 rounded-b-lg"
+                    >
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.path}
+                                to={link.path}
+                                onClick={() => setIsMenuOpen(false)}
+                                className={`block px-4 py-2 text-sm font-medium transition-colors ${
+                                    location.pathname === link.path 
+                                        ? 'text-blue-500 bg-gray-700' 
+                                        : 'text-gray-300 hover:text-blue-400'
+                                }`}
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
+                    </motion.div>
+                )}
             </div>
         </motion.nav>
     );

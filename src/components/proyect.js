@@ -1,82 +1,62 @@
-import KOSIUKO from "../img/ecommerce3.mp4"
-import ALTIORA from "../img/enterprice2.mp4"
-import NONSTOP from "../img/enterprice4.mp4"
-import FARMAGRAM from "../img/enterprice3.mp4"
-import FARMAGRAM1 from "../img/enterprice1.mp4"
-import tradingApp from "../img/enterprice3.mp4"//credit
-import bankingApp from "../img/enterprice3.mp4"//credit
 import ecklypceImg from "../img/ecklypce.jpg"
 import pilchaImg from "../img/pilcha.jpg"
+import colors from "../img/colors.jpg"
+import credit from "../img/credit.jpg"
+import creditV2 from "../img/creditv2.jpg"
 
 export const projects = [
     {
-        group: "Frontend E-commerce",
+        group: "Web Projects",
+        icon: "FaGlobe",
         projects: [
             {
-                title: "Ecklypce",
-                image: ecklypceImg,
-                desc: "Fashion brand e-commerce with modern design",
+                title: "Ecklypce - E-commerce",
+                subtitle: "Fashion platform with stock management",
+                images: [ecklypceImg],
+                desc: "Professional e-commerce with modern design and real-time inventory management system",
+                tech: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
                 links: {
                     web: "https://www.ecklypce.com/",
                     instagram: "https://www.instagram.com/ecklypce/"
                 }
             },
             {
-                title: "Pilcha SM",
-                image: pilchaImg,
-                desc: "Multi-brand clothing marketplace",
+                title: "Pilcha SM - Marketplace",
+                subtitle: "Multi-brand clothing platform",
+                images: [pilchaImg],
+                desc: "Marketplace with multiple brands and integrated payment system for online sales",
+                tech: ["React", "Express", "PostgreSQL", "Stripe"],
                 links: {
                     web: "https://pilchasm.github.io/pilcha.sm",
                     instagram: "https://www.instagram.com/pilcha.sm/"
                 }
-            },
-            {
-                title: "Wholesale Fashion",
-                film: KOSIUKO,
-                desc: "wholesale clothing platform, internal to the company"
             }
         ]
     },
     {
-        group: "Frontend Financial",
+        group: "Mobile Projects",
+        icon: "FaMobile",
         projects: [
             {
-                title: "Investment Platform",
-                film: tradingApp,
-                desc: "Trading interface (Web & Mobile)",
-                hasWebAndMobile: true
-            },
-            {
-                title: "Banking Dashboard",
-                film: bankingApp,
-                desc: "Digital wallet (Web & Mobile)",
-                hasWebAndMobile: true
-            }
-        ]
-    },
-    {
-        group: "Frontend Enterprise",
-        projects: [
-            {
-                title: "Production Dashboard",
-                film: ALTIORA,
-                desc: "Manufacturing control interface"
-            },
-            {
-                title: "Quality Control",
-                film: FARMAGRAM1,
-                desc: "Quality tracking dashboard"
-            },
-            {
-                title: "Billing Interface",
-                film: FARMAGRAM,
-                desc: "Invoice management system"
-            },
-            {
-                title: "CRM Dashboard",
-                film: NONSTOP,
-                desc: "Client management interface"
+                title: "Login Color",
+                subtitle: "Testing app with theme management system",
+                images: [colors, credit, creditV2],
+                desc: "React Native application with advanced state management, form validation, and multiple authentication flows. Features theme system with custom hooks and Redux for global state.",
+                tech: ["React Native", "Redux", "Yup", "Custom Hooks", "Expo", "Firebase", "Context API"],
+                details: [
+                    "Redux for global state management",
+                    "Yup for form validation schemas",
+                    "Custom Hooks for reusable logic",
+                    "Multiple authentication screens",
+                    "Theme switching system",
+                    "Responsive UI components",
+                    "Real-time form validation"
+                ],
+                links: {
+                    web: "https://github.com/Santiagoh99/login-color"
+                }
             }
         ]
     }
 ];
+

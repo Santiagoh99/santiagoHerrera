@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 
 const Hero = () => {
     return (
@@ -7,64 +8,77 @@ const Hero = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1 }}
-            className="min-h-screen flex items-center justify-center bg-gray-800 text-white"
+            className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-800 via-gray-900 to-gray-900 text-white pt-20"
         >
-            <div className="container mx-auto flex flex-col items-center gap-8">
-                <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-blue-500"
+            <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+                <motion.div 
+                    initial={{ opacity: 0, x: -50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    className="flex-1 space-y-6"
                 >
-                    <img 
-                        src={require("../img/me.jpg")}
-                        alt="Santiago"
-                        className="w-full h-full object-cover"
-                    />
-                </motion.div>
-                
-                <div className="text-center space-y-4">
-                    <motion.p 
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.7 }}
-                        className="text-xl text-blue-400"
-                    >
-                        Software Engineer
-                    </motion.p>
-                    <motion.p 
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5, delay: 0.7 }}
-                        className="text-xl text-blue-400"
-                    >
-                        From Argentina
-                    </motion.p>
-                    
-                    <motion.div 
+                    <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.9 }}
-                        className="flex justify-center gap-6"
+                        transition={{ delay: 0.3 }}
                     >
-                        <a 
-                            href="https://www.linkedin.com/in/santiago-martin-herrera/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-3xl text-blue-400 hover:text-blue-300 transition-colors"
-                        >
-                            <FaLinkedin />
-                        </a>
-                        <a 
-                            href="https://github.com/Santiagoh99"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-3xl text-blue-400 hover:text-blue-300 transition-colors"
-                        >
-                            <FaGithub />
-                        </a>
+                        <span className="text-blue-400 text-sm font-semibold tracking-widest uppercase">Full Stack Software Engineer</span>
                     </motion.div>
-                </div>
+
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        className="text-5xl md:text-6xl font-bold leading-tight"
+                    >
+                        I Develop Scalable <span className="text-blue-500">Digital Solutions</span>
+                    </motion.h1>
+
+                    <motion.p 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        className="text-xl text-gray-300 max-w-2xl"
+                    >
+                        I specialize in modern web and mobile technologies. I create high-quality applications using best practices and innovative approaches.
+                    </motion.p>
+
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.6 }}
+                        className="flex flex-col sm:flex-row gap-4 pt-4"
+                    >
+                        <Link 
+                            to="/portfolio"
+                            className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
+                        >
+                            View My Work <FaArrowRight size={16} />
+                        </Link>
+                        <Link 
+                            to="/contact"
+                            className="inline-flex items-center justify-center px-8 py-3 border-2 border-blue-500 text-blue-400 hover:bg-blue-500/10 font-semibold rounded-lg transition-colors"
+                        >
+                            Get In Touch
+                        </Link>
+                    </motion.div>
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
+                    className="flex-1 hidden md:flex items-center justify-center"
+                >
+                    <div className="relative w-80 h-80 bg-gradient-to-br from-blue-500/20 to-blue-700/20 rounded-full flex items-center justify-center border border-blue-500/30 backdrop-blur-sm">
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500/0 via-blue-400/10 to-blue-500/0 animate-pulse"></div>
+                        <img 
+                            src={require("../img/me.jpg")}
+                            alt="Santiago"
+                            className="w-72 h-72 rounded-full object-cover border-4 border-blue-500 shadow-2xl"
+                        />
+                    </div>
+                </motion.div>
             </div>
         </motion.div>
     );

@@ -1,7 +1,6 @@
 import React from "react";
 import Hero from "../components/Hero";
 import Experience from "../components/Experience";
-import Contact from "../components/Contacts";
 
 function Home() {
     return (
@@ -10,9 +9,6 @@ function Home() {
             <div className="container mx-auto">
                 <section className="py-16">
                     <Experience />
-                </section>
-                <section className="py-16">
-                    <Contact />
                 </section>
             </div>
         </div>
