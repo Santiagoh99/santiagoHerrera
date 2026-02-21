@@ -48,25 +48,31 @@ const Experience = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-2 sm:p-4 overflow-auto"
             onClick={onClose}
         >
             <motion.div 
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                className="relative max-w-4xl w-full"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className="relative my-auto"
                 onClick={(e) => e.stopPropagation()}
             >
                 <button
                     onClick={onClose}
-                    className="absolute -top-10 right-0 text-white hover:text-gray-400 transition-colors"
+                    className="absolute -top-8 right-0 text-white hover:text-gray-400 transition-colors z-10 sm:-top-10"
                 >
-                    <FaTimes size={28} />
+                    <FaTimes size={24} className="sm:w-7 sm:h-7" />
                 </button>
                 <img 
                     src={image}
                     alt="Gallery"
-                    className="w-full rounded-lg"
+                    className="max-w-[95vw] max-h-[90vh] w-auto h-auto rounded-lg shadow-2xl"
+                    style={{
+                        objectFit: 'contain',
+                        WebkitTouchCallout: 'none',
+                        WebkitUserSelect: 'none'
+                    }}
                 />
             </motion.div>
         </motion.div>

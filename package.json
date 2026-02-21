@@ -2,7 +2,7 @@
   "name": "mi-portafolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ecklypce.com",
+  "homepage": "https://home.com",
   "dependencies": {
     "cra-template": "1.2.0",
     "framer-motion": "^6.5.1",
