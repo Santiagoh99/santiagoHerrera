@@ -17,10 +17,10 @@ function Navbar() {
     }, []);
 
     const navLinks = [
-        { path: "/", label: "Inicio" },
-        { path: "/servicios", label: "Servicios" },
-        { path: "/portafolio", label: "Portafolio" },
-        { path: "/contacto", label: "Contacto" }
+        { path: "/", label: "Home" },
+        { path: "/portfolio", label: "Portfolio" },
+        { path: "/servis", label: "Services" },
+        { path: "/contact", label: "Contact" }
     ];
 
     const toggleMenu = () => {
@@ -52,7 +52,6 @@ function Navbar() {
                         </Link>
                     </motion.div>
 
-                    {/* Desktop Menu */}
                     <div className="hidden md:flex space-x-8">
                         {navLinks.map((link, index) => (
                             <motion.div
@@ -82,7 +81,6 @@ function Navbar() {
                         ))}
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <button 
                         onClick={toggleMenu}
                         className="md:hidden text-white text-xl"
@@ -91,7 +89,6 @@ function Navbar() {
                     </button>
                 </div>
 
-                {/* Mobile Menu */}
                 {isMenuOpen && (
                     <motion.div 
                         initial={{ opacity: 0, y: -10 }}

@@ -87,7 +87,6 @@ function Services() {
                     </p>
                 </motion.div>
 
-                {/* Servicios Detallados */}
                 {detailedServices.map((service, index) => (
                     <motion.div
                         key={service.id}
@@ -142,7 +141,6 @@ function Services() {
                     </motion.div>
                 ))}
 
-                {/* Call to Action */}
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

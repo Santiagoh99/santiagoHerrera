@@ -75,7 +75,6 @@ function Portfolio() {
         <div className="min-h-screen bg-gray-900 text-white pt-20">
             <div className="container mx-auto px-4 py-16">
                 
-                {/* Header */}
                 <motion.div 
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -87,7 +86,6 @@ function Portfolio() {
                     </p>
                 </motion.div>
 
-                {/* Professional Experience */}
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +136,6 @@ function Portfolio() {
                     ))}
                 </motion.div>
 
-                {/* Skills Section */}
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

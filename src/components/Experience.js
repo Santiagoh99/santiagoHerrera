@@ -127,13 +127,10 @@ const Experience = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
                         >
-                            {/* Título del grupo */}
                             <div className="mb-8">
                                 <h3 className="text-3xl font-bold text-white mb-2">{group.group}</h3>
                                 <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-blue-700 rounded"></div>
                             </div>
-
-                            {/* Proyectos del grupo */}
                             <div className="space-y-12">
                                 {group.projects.map((project, pIndex) => (
                                     <motion.div
@@ -144,13 +141,11 @@ const Experience = () => {
                                         className="bg-gray-800 rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition-colors group"
                                     >
                                         <div className="p-6">
-                                            {/* Project Header */}
                                             <div className="mb-6">
                                                 <h4 className="text-2xl font-bold text-blue-400 mb-2">{project.title}</h4>
                                                 <p className="text-gray-400 text-sm mb-3">{project.subtitle}</p>
                                                 <p className="text-gray-300 mb-4">{project.desc}</p>
                                                 
-                                                {/* Tech Stack */}
                                                 {project.tech && (
                                                     <div className="mb-4">
                                                         <p className="text-xs font-semibold text-gray-400 mb-2">TECHNOLOGIES:</p>
@@ -158,7 +153,6 @@ const Experience = () => {
                                                     </div>
                                                 )}
 
-                                                {/* Project Details */}
                                                 {project.details && (
                                                     <div className="mb-4 p-3 bg-gray-900/50 rounded-lg border border-gray-700">
                                                         <p className="text-xs font-semibold text-gray-400 mb-2">KEY FEATURES:</p>
@@ -172,11 +166,9 @@ const Experience = () => {
                                                     </div>
                                                 )}
 
-                                                {/* Links */}
                                                 {project.links && <SocialLinks links={project.links} />}
                                             </div>
 
-                                            {/* Image Gallery */}
                                             {project.images && project.images.length > 0 && (
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                                                     {project.images.map((image, imgIndex) => (
@@ -199,7 +191,6 @@ const Experience = () => {
                                                 </div>
                                             )}
 
-                                            {/* Video */}
                                             {project.film && (
                                                 <motion.div
                                                     whileHover={{ scale: 1.02 }}
@@ -234,7 +225,6 @@ const Experience = () => {
                 </div>
             </div>
 
-            {/* Modales */}
             {selectedImage && (
                 <GalleryModal image={selectedImage} onClose={() => setSelectedImage(null)} />
             )}

@@ -11,7 +11,6 @@ const Hero = () => {
             className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-800 via-gray-900 to-gray-900 text-white pt-20"
         >
             <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
-                {/* Contenido */}
                 <motion.div 
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -65,7 +64,6 @@ const Hero = () => {
                     </motion.div>
                 </motion.div>
 
-                {/* Imagen/Ilustración */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}

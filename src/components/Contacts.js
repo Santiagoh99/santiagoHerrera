@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { FaLinkedin, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa";
 
-const Contact = () => {
+const Contacts = () => {
     const socialLinks = [
         {
             name: "LinkedIn",
@@ -24,7 +24,7 @@ const Contact = () => {
         {
             name: "Email",
             icon: <FaEnvelope className="text-2xl" />,
-            url: "mailto:santiherrera99@icloud.com",
+            url: "mailto:santiagomh1999@gmail.com",
             color: "hover:text-red-500"
         }
     ];
@@ -38,7 +38,7 @@ const Contact = () => {
         >
             <div className="container mx-auto px-4">
                 <div className="text-center mb-12">
-                    <h2 className="text-4xl font-bold mb-4">Contact me</h2>
+                    <h2 className="text-4xl font-bold mb-4">Get In Touch</h2>
                 </div>
 
                 <div className="flex justify-center items-center space-x-8">
@@ -66,4 +66,4 @@ const Contact = () => {
     );
 };
 
-export default Contact;
+export default Contacts;
