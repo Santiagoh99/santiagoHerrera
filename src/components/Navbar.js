@@ -19,7 +19,6 @@ function Navbar() {
     const navLinks = [
         { path: "/", label: "Home" },
         { path: "/portfolio", label: "Portfolio" },
-        { path: "/servis", label: "Services" },
         { path: "/contact", label: "Contact" }
     ];
 

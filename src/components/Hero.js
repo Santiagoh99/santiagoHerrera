@@ -50,13 +50,13 @@ const Hero = () => {
                         className="flex flex-col sm:flex-row gap-4 pt-4"
                     >
                         <Link 
-                            to="/portafolio"
+                            to="/portfolio"
                             className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
                         >
                             View My Work <FaArrowRight size={16} />
                         </Link>
                         <Link 
-                            to="/contacto"
+                            to="/contact"
                             className="inline-flex items-center justify-center px-8 py-3 border-2 border-blue-500 text-blue-400 hover:bg-blue-500/10 font-semibold rounded-lg transition-colors"
                         >
                             Get In Touch

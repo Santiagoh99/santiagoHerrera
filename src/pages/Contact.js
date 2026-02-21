@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaWhatsapp, FaMapMarkerAlt, FaCheckCircle } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 
 function Contact() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        phone: "",
         message: ""
     });
     const [submitted, setSubmitted] = useState(false);
@@ -21,12 +20,12 @@ function Contact() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Enviar email
-        const mailtoLink = `mailto:santiagomh1999@gmail.com?subject=New%20Message&body=Name:%20${formData.name}%0AEmail:%20${formData.email}%0APhone:%20${formData.phone}%0A%0AMessage:%0A${formData.message}`;
+        const mailtoLink = `mailto:santiagomh1999@gmail.com?subject=New%20Message&body=Name:%20${formData.name}%0AEmail:%20${formData.email}%0A%0AMessage:%0A${formData.message}`;
         window.location.href = mailtoLink;
         
         setSubmitted(true);
         setTimeout(() => setSubmitted(false), 5000);
-        setFormData({ name: "", email: "", phone: "", message: "" });
+        setFormData({ name: "", email: "", message: "" });
     };
 
     return (
@@ -87,18 +86,6 @@ function Contact() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold mb-2">Phone</label>
-                                <input
-                                    type="tel"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                    className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none text-white"
-                                    placeholder="+54 9 11 XXXX-XXXX"
-                                />
-                            </div>
-
-                            <div>
                                 <label className="block text-sm font-semibold mb-2">Message *</label>
                                 <textarea
                                     name="message"
@@ -127,32 +114,26 @@ function Contact() {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.2 }}
-                            className="bg-gray-800 p-8 rounded-xl border border-gray-700"
-                        >
-                            <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                                <FaMapMarkerAlt className="text-blue-400" />
-                                Location
-                            </h3>
-                            <p className="text-gray-300">Buenos Aires, Argentina</p>
-                            <p className="text-gray-400 text-sm mt-2">Available for remote work at national and international level</p>
-                        </motion.div>
-
-                        <motion.div 
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.4 }}
                             className="bg-gradient-to-r from-blue-500/10 to-blue-700/10 p-8 rounded-xl border border-blue-500/30"
                         >
-                            <h3 className="text-2xl font-bold mb-3">Quick Chat</h3>
-                            <p className="text-gray-300 mb-4">Send me a message on WhatsApp for an immediate response</p>
-                            <a 
-                                href="https://wa.me/5491155555555?text=Hi,%20I%20have%20a%20question"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-6 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition-colors"
-                            >
-                                <FaWhatsapp /> Chat on WhatsApp
-                            </a>
+                            <h3 className="text-2xl font-bold mb-3">Get in Touch</h3>
+                            <p className="text-gray-300 mb-6">Feel free to reach out through the form or contact me directly on social media.</p>
+                            <div className="flex flex-wrap gap-4">
+                                <a 
+                                    href="mailto:santiagomh1999@gmail.com"
+                                    className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition-colors"
+                                >
+                                    Email Me
+                                </a>
+                                <a 
+                                    href="https://wa.me/5491155555555?text=Hi,%20I%20have%20a%20question"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-6 py-2 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition-colors"
+                                >
+                                    WhatsApp
+                                </a>
+                            </div>
                         </motion.div>
                     </div>
                 </motion.div>
