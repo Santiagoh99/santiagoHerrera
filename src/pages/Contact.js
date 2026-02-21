@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCheckCircle } from "react-icons/fa";
+import { FaWhatsapp, FaMapMarkerAlt, FaCheckCircle } from "react-icons/fa";
 
 function Contact() {
     const [formData, setFormData] = useState({
@@ -28,30 +28,6 @@ function Contact() {
         setTimeout(() => setSubmitted(false), 5000);
         setFormData({ name: "", email: "", phone: "", message: "" });
     };
-
-    const contactMethods = [
-        {
-            icon: FaWhatsapp,
-            title: "WhatsApp",
-            description: "Quick response",
-            action: "https://wa.me/5491155555555?text=Hi,%20I'd%20like%20to%20connect%20with%20you",
-            color: "from-green-500 to-green-700"
-        },
-        {
-            icon: FaEnvelope,
-            title: "Email",
-            description: "santiagomh1999@gmail.com",
-            action: "mailto:santiagomh1999@gmail.com",
-            color: "from-blue-500 to-blue-700"
-        },
-        {
-            icon: FaPhone,
-            title: "Phone",
-            description: "+54 9 11 5555-5555",
-            action: "tel:+5491155555555",
-            color: "from-purple-500 to-purple-700"
-        }
-    ];
 
     return (
         <div className="min-h-screen bg-gray-900 text-white pt-20">

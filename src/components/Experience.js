@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { projects } from "./proyect";
-import { FaInstagram, FaGithub, FaExternalLinkAlt, FaPlay, FaTimes } from "react-icons/fa";
+import { FaInstagram, FaGithub, FaExternalLinkAlt, FaTimes } from "react-icons/fa";
 
 const Experience = () => {
     const [selectedImage, setSelectedImage] = useState(null);
-    const [selectedVideo, setSelectedVideo] = useState(null);
 
     const SocialLinks = ({ links }) => (
         <div className="flex gap-3">
@@ -69,37 +68,6 @@ const Experience = () => {
                     alt="Gallery"
                     className="w-full rounded-lg"
                 />
-            </motion.div>
-        </motion.div>
-    );
-
-    const VideoModal = ({ video, onClose, hasWebAndMobile }) => (
-        <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
-            onClick={onClose}
-        >
-            <motion.div 
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                className={`relative w-full ${hasWebAndMobile ? 'max-w-6xl' : 'max-w-4xl'}`}
-                onClick={(e) => e.stopPropagation()}
-            >
-                <button
-                    onClick={onClose}
-                    className="absolute -top-10 right-0 text-white hover:text-gray-400 transition-colors"
-                >
-                    <FaTimes size={28} />
-                </button>
-                <video 
-                    className="w-full rounded-lg"
-                    controls
-                    autoPlay
-                >
-                    <source src={video} type="video/mp4" />
-                </video>
             </motion.div>
         </motion.div>
     );
@@ -190,32 +158,6 @@ const Experience = () => {
                                                     ))}
                                                 </div>
                                             )}
-
-                                            {project.film && (
-                                                <motion.div
-                                                    whileHover={{ scale: 1.02 }}
-                                                    onClick={() => setSelectedVideo(project.film)}
-                                                    className="relative aspect-video cursor-pointer overflow-hidden rounded-lg group/video bg-gray-900"
-                                                >
-                                                    <video 
-                                                        className="w-full h-full object-cover transition-transform duration-300 group-hover/video:scale-110"
-                                                        muted
-                                                        loop
-                                                        onMouseOver={(e) => e.target.play()}
-                                                        onMouseOut={(e) => e.target.pause()}
-                                                    >
-                                                        <source src={project.film} type="video/mp4" />
-                                                    </video>
-                                                    <div className="absolute inset-0 bg-black/20 group-hover/video:bg-black/40 transition-colors flex items-center justify-center">
-                                                        <motion.div
-                                                            whileHover={{ scale: 1.2 }}
-                                                            className="text-white text-4xl opacity-70 group-hover/video:opacity-100"
-                                                        >
-                                                            <FaPlay />
-                                                        </motion.div>
-                                                    </div>
-                                                </motion.div>
-                                            )}
                                         </div>
                                     </motion.div>
                                 ))}
@@ -227,13 +169,6 @@ const Experience = () => {
 
             {selectedImage && (
                 <GalleryModal image={selectedImage} onClose={() => setSelectedImage(null)} />
-            )}
-            {selectedVideo && (
-                <VideoModal 
-                    video={selectedVideo} 
-                    onClose={() => setSelectedVideo(null)}
-                    hasWebAndMobile={false}
-                />
             )}
         </div>
     );
