@@ -1,70 +1,149 @@
-# Getting Started with Create React App
+# Santiago Herrera - Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Professional portfolio showcasing my work as a Full Stack Software Engineer. Built with React, Tailwind CSS, and Framer Motion.
 
-## Available Scripts
+## 🚀 Live Demo
 
-In the project directory, you can run:
+[ecklypce.com](https://ecklypce.com)
 
-### `npm start`
+## 📋 About
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This is a modern, responsive portfolio website that highlights:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Professional Experience**: 3+ years in full stack development
+- **Technical Skills**: Backend, Frontend, Databases, DevOps, and more
+- **Featured Projects**: E-commerce platforms and mobile applications
+- **Contact Information**: Easy ways to get in touch
 
-### `npm test`
+## 🛠️ Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Frontend**: React 18.2
+- **Styling**: Tailwind CSS 3.4
+- **Animations**: Framer Motion 6.5
+- **Icons**: React Icons 5.5
+- **Routing**: React Router DOM 6.20
+- **Build Tool**: Create React App
 
-### `npm run build`
+## ✨ Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- ✅ Responsive design (mobile, tablet, desktop)
+- ✅ Smooth animations and transitions
+- ✅ Project gallery with image lightbox
+- ✅ Contact form with validation
+- ✅ Social media links
+- ✅ Dark theme UI
+- ✅ Input sanitization & security
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📁 Project Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+src/
+├── components/
+│   ├── Contacts.js          # Social links component
+│   ├── Experience.js        # Featured projects section
+│   ├── Footer.js            # Footer with copyright
+│   ├── Hero.js              # Landing hero section
+│   ├── Navbar.js            # Navigation bar
+│   └── proyect.js           # Project data
+├── pages/
+│   ├── Home.js              # Home page
+│   ├── Portfolio.js         # Portfolio & skills page
+│   ├── Contact.js           # Contact form page
+│   └── NotFound.js          # 404 page
+├── utils/
+│   └── security.js          # Input validation & sanitization
+├── App.js                   # Main app component
+└── index.js                 # Entry point
+```
 
-### `npm run eject`
+## 🚀 Getting Started
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Prerequisites
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Node.js 14+
+- npm or yarn
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Installation
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+# Clone the repository
+git clone https://github.com/Santiagoh99/santiagoHerrera.git
 
-## Learn More
+# Navigate to project
+cd santiagoHerrera
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Install dependencies
+npm install
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Start development server
+npm start
+```
 
-### Code Splitting
+The app will open at [http://localhost:3000](http://localhost:3000)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📦 Build for Production
 
-### Analyzing the Bundle Size
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Creates an optimized production build in the `build/` folder.
 
-### Making a Progressive Web App
+## 🔒 Security
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Input validation and sanitization
+- XSS attack prevention
+- Safe external links with `rel="noopener noreferrer"`
+- URL protocol validation
 
-### Advanced Configuration
+## 📄 Pages
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Page      | Route        | Description                                  |
+| --------- | ------------ | -------------------------------------------- |
+| Home      | `/`          | Landing page with hero and featured projects |
+| Portfolio | `/portfolio` | Professional experience and technical skills |
+| Contact   | `/contact`   | Contact form and social links                |
 
-### Deployment
+## 🎨 Design Highlights
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Dark theme with blue accent colors
+- Smooth animations using Framer Motion
+- Mobile-first responsive design
+- Professional typography
+- Image gallery with lightbox modal
 
-### `npm run build` fails to minify
+## 💼 Professional Experience
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Santander Tecnología Argentina** (Mar 2023 - Present) - Full Stack Software Engineer
+- **Implementaciones Industriales SRL** (Aug 2021 - Mar 2023) - Frontend & Backend Developer
+- **Freelance** (2022 - Present) - Full Stack Developer
+
+## 🎓 Technical Skills
+
+- **Backend**: Node.js, NestJS, TypeScript, Express, .NET
+- **Frontend**: React, React Native, Angular, Tailwind CSS
+- **Databases**: PostgreSQL, MongoDB, Oracle, Redis
+- **DevOps**: Docker, OpenShift, GitLab Pipelines, CI/CD
+- **Enterprise**: Agile/Scrum, Jira, Microsoft CRM
+
+## 📞 Contact
+
+- **Email**: santiagomh1999@gmail.com
+- **LinkedIn**: [Santiago Martin Herrera](https://www.linkedin.com/in/santiago-martin-herrera/)
+- **GitHub**: [Santiagoh99](https://github.com/Santiagoh99)
+- **Instagram**: [@\_santiherreraa](https://www.instagram.com/_santiherreraa/)
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+## 🙌 Acknowledgments
+
+- [Create React App](https://github.com/facebook/create-react-app)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+
+---
+
+**Last Updated**: February 20, 2026
