@@ -451,6 +451,40 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Arribando",
+    subtitle: "Reservations and orders SaaS for restaurants, run over WhatsApp",
+    description:
+      "A multi-tenant product for restaurants: online reservations, takeaway orders and an editable menu, managed from one panel and connected to WhatsApp. Sold in three plans and already used by Círculo, a restaurant in Buenos Aires.",
+    problem:
+      "Small restaurants take reservations and orders through scattered WhatsApp chats and calls. They need one place to see and confirm everything, with their own branding.",
+    role: "Creator. Built the product end to end under Atlantic Four Tech, from the first client (Círculo) to a sellable plan structure.",
+    keyDecisions: [
+      "Multi-tenant Supabase schema with Row-Level Security on every table, so each restaurant only ever sees its own reservations, orders and menu",
+      "Supabase Realtime pushes new reservations and orders into the owner's panel without a refresh",
+      "Upstash Redis rate limiting on the public reservation and order flows, which are open to anyone",
+      "Database backups with GitHub Actions to Cloudflare R2, outside the main provider",
+      "The public site includes an interactive demo of the full flow that saves and sends nothing, so restaurants can try it before buying",
+    ],
+    tech: [
+      "Next.js 14",
+      "TypeScript",
+      "Supabase",
+      "Supabase Realtime",
+      "Row-Level Security",
+      "MercadoPago",
+      "Resend",
+      "Upstash Redis",
+      "GitHub Actions",
+      "Cloudflare R2",
+      "Vercel",
+    ],
+    links: { live: "https://arribando.atlanticfourtech.com" },
+    screenshot: "/img/arribando.jpg",
+    // TODO(Santiago): confirm Arribando is the productized version of the Círculo platform (Resa Hub); the stack and decisions above come from that project. Also confirm the Realtime use in the panel.
+    whatIdChange: [],
+    featured: true,
+  },
+  {
     title: "Fecalpo",
     subtitle: "AI-powered WhatsApp bot for shared household expenses",
     description:
@@ -501,6 +535,24 @@ export const projects: Project[] = [
     tech: ["HTML", "CSS", "JavaScript", "ActiveCampaign", "Node test runner", "ffmpeg", "Vercel"],
     links: { live: "https://soccer-school.portstluciesc.com", github: "https://github.com/ItPortstlucieSC/pslsc-school" },
     screenshot: "/img/pslsc-school.jpg",
+    featured: false,
+  },
+  {
+    title: "Xilox 3",
+    subtitle: "Website redesign for a home, industrial and automotive products company",
+    description:
+      "A redesigned corporate site for Xilox 3, a supplier of products for homes, construction, industry and automotive. Editorial typography, large imagery and scroll-driven motion, with a visible control to pause all movement.",
+    problem:
+      "The company sells three product lines (home and construction, industry, automotive) to different kinds of buyers, all from one site.",
+    role: "Creator. Designed and built the demo.",
+    keyDecisions: [
+      "Each product line gets its own full section with a single clear path to its catalog",
+      "Motion is optional: a persistent \"Pause motion\" control stops every animation for visitors who prefer less movement",
+    ],
+    // TODO(Santiago): add the stack you used.
+    tech: [],
+    links: { live: "https://xilox-demo.vercel.app" },
+    screenshot: "/img/xilox.jpg",
     featured: false,
   },
   {
