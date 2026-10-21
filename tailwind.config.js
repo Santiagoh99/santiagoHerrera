@@ -1,3 +1,6 @@
+// Tokens are CSS variables; color-mix lets opacity modifiers (`bg-background/90`) work on them.
+const token = (name) => `color-mix(in srgb, var(--${name}) calc(<alpha-value> * 100%), transparent)`;
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -5,22 +8,27 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  // `hover:` only applies on devices that can hover, so taps don't leave sticky hover states.
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     extend: {
       fontFamily: {
-        archivo: ["'Archivo'", "sans-serif"],
-        grotesk: ["'Space Grotesk'", "sans-serif"],
+        sans: ["var(--font-sans)", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       colors: {
-        background: "var(--background)",
-        surface: "var(--surface)",
-        "surface-elevated": "var(--surface-elevated)",
-        border: "var(--border)",
-        foreground: "var(--foreground)",
-        "muted-foreground": "var(--muted-foreground)",
-        accent: "var(--accent)",
-        "accent-hover": "var(--accent-hover)",
-        "accent-muted": "var(--accent-muted)",
+        background: token("background"),
+        surface: token("surface"),
+        "surface-elevated": token("surface-elevated"),
+        border: token("border"),
+        foreground: token("foreground"),
+        "muted-foreground": token("muted-foreground"),
+        accent: token("accent"),
+        "accent-hover": token("accent-hover"),
+        "accent-foreground": token("accent-foreground"),
+        "accent-muted": token("accent-muted"),
       },
     },
   },

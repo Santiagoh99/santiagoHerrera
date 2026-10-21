@@ -1,20 +1,7 @@
-"use client";
-
-interface TagProps {
-  children: React.ReactNode;
-  variant?: "default" | "accent";
-}
-
-export default function Tag({ children, variant = "default" }: TagProps) {
-  const styles =
-    variant === "accent"
-      ? "bg-accent/10 text-accent border border-accent/20"
-      : "bg-surface-elevated text-muted-foreground border border-border";
-
+// Stack names are data, so they're set in mono.
+export default function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span
-      className={`inline-block px-2.5 py-1 text-xs font-medium rounded-full border ${styles}`}
-    >
+    <span className="inline-block max-w-full break-words px-2.5 py-1 font-mono text-xs text-muted-foreground bg-background/60 border border-border rounded-md">
       {children}
     </span>
   );

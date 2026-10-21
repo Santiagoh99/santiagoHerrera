@@ -1,5 +1,3 @@
-"use client";
-
 import { siteConfig } from "@/lib/data";
 
 export default function Footer() {
@@ -11,12 +9,12 @@ export default function Footer() {
           &copy; {year}{" "}
           <span className="font-medium text-foreground">{siteConfig.name}</span>
         </p>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4">
           <a
             href={siteConfig.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors duration-200"
+            className="inline-flex items-center justify-center min-h-11 min-w-11 hover:text-foreground transition-colors duration-200"
           >
             GitHub
           </a>
@@ -24,13 +22,13 @@ export default function Footer() {
             href={siteConfig.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-foreground transition-colors duration-200"
+            className="inline-flex items-center justify-center min-h-11 min-w-11 hover:text-foreground transition-colors duration-200"
           >
             LinkedIn
           </a>
           <a
             href={`mailto:${siteConfig.email}`}
-            className="hover:text-foreground transition-colors duration-200"
+            className="inline-flex items-center justify-center min-h-11 min-w-11 hover:text-foreground transition-colors duration-200"
           >
             Email
           </a>

@@ -90,3 +90,6 @@ skills-lock.json
 .agents
 
 
+
+# Claude Code local settings
+.claude/settings.local.json

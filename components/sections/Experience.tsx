@@ -1,104 +1,75 @@
-"use client";
-
-import { motion } from "framer-motion";
-import SectionLabel from "@/components/ui/SectionLabel";
 import Tag from "@/components/ui/Tag";
-import { experience } from "@/lib/data";
+import { experience as allExperience, type ExperienceItem } from "@/lib/data";
 
-export default function Experience() {
+export default function Experience({ items = allExperience }: { items?: ExperienceItem[] }) {
   return (
-    <section id="experience" className="py-24 section-divider">
+    <section id="experience" className="py-24 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="mb-14"
-        >
-          <SectionLabel>Experience</SectionLabel>
-          <h2 className="font-archivo text-4xl font-bold text-foreground">
-            Where I&apos;ve worked
-          </h2>
-        </motion.div>
+        <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-14">
+          Where I&apos;ve worked
+        </h2>
 
-        <div className="relative">
-          {/* Timeline line — visible on md+ */}
-          <div
-            className="hidden md:block absolute left-[11px] top-2 bottom-0 w-px bg-border"
-            aria-hidden="true"
-          />
+        {items.length === 0 ? (
+          <p className="text-muted-foreground">No roles listed yet.</p>
+        ) : (
+          <div className="timeline relative pl-8 md:pl-12">
+            {/* Rail + scroll-linked progress (CSS only; static rail without support) */}
+            <div className="absolute left-[5px] md:left-[9px] top-2 bottom-2 w-px bg-border" aria-hidden="true">
+              <div className="timeline-progress absolute inset-0 bg-accent" />
+            </div>
 
-          <div className="space-y-0">
-            {experience.map((item, i) => (
-              <motion.div
-                key={`${item.company}-${i}`}
-                initial={{ opacity: 0, x: -16 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="relative md:pl-10 pb-12 last:pb-0"
-              >
-                {/* Timeline dot */}
-                <div
-                  className="hidden md:block absolute left-0 top-1.5 w-[22px] h-[22px] rounded-full border-2 border-accent bg-background"
+            <ol>
+
+            {items.map((item, i) => (
+              <li key={`${item.company}-${i}`} className="relative pb-14 last:pb-0 break-words">
+                <span
+                  className="timeline-marker absolute -left-8 md:-left-12 top-1.5 size-[11px] md:size-[19px] rounded-full border-2 border-accent bg-background"
                   aria-hidden="true"
                 />
 
-                <div className="bg-surface rounded-xl border border-border p-6 hover:border-accent/30 transition-colors duration-300">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-                    <div>
-                      <h3 className="font-archivo text-lg font-bold text-foreground">
-                        {item.title}
-                      </h3>
-                      <p className="text-accent font-medium text-sm mt-0.5">
-                        {item.company}
-                      </p>
-                    </div>
-                    <div className="flex-shrink-0 text-right">
-                      <span className="text-xs text-muted-foreground font-medium">
-                        {item.period}
-                      </span>
-                      <div className="mt-1">
-                        <span
-                          className={`inline-block text-xs px-2 py-0.5 rounded-full font-medium ${
-                            item.type === "full-time"
-                              ? "bg-surface-elevated text-muted-foreground"
-                              : "bg-accent/10 text-accent"
-                          }`}
-                        >
-                          {item.type === "full-time" ? "Full-time" : "Freelance"}
-                        </span>
-                      </div>
-                    </div>
+                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-x-6 gap-y-1 mb-3">
+                  <div className="min-w-0">
+                    <h3 className="font-display text-xl font-bold text-foreground break-words">
+                      {item.title}
+                    </h3>
+                    <p className="text-accent font-medium text-sm mt-0.5 break-words">{item.company}</p>
                   </div>
+                  <p className="sm:flex-shrink-0 font-mono text-xs text-muted-foreground tabular">
+                    {item.period}
+                    <span className="mx-2" aria-hidden="true">·</span>
+                    {item.type === "full-time" ? "Full-time" : item.type === "contract" ? "Contract" : "Freelance"}
+                  </p>
+                </div>
 
-                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+                {item.description && (
+                  <p className="text-sm text-muted-foreground mb-4 leading-relaxed max-w-3xl">
                     {item.description}
                   </p>
+                )}
 
-                  <ul className="space-y-1.5 mb-5">
+                {item.highlights.length > 0 && (
+                  <ul className="space-y-1.5 mb-5 max-w-3xl">
                     {item.highlights.map((h) => (
                       <li key={h} className="flex items-start gap-2.5 text-sm">
-                        <span
-                          className="mt-1.5 flex-shrink-0 w-1 h-1 rounded-full bg-accent/60"
-                          aria-hidden="true"
-                        />
-                        <span className="text-muted-foreground">{h}</span>
+                        <span className="mt-2 flex-shrink-0 w-1 h-1 rounded-full bg-muted-foreground" aria-hidden="true" />
+                        <span className="text-muted-foreground min-w-0 break-words">{h}</span>
                       </li>
                     ))}
                   </ul>
+                )}
 
+                {item.tech.length > 0 && (
                   <div className="flex flex-wrap gap-1.5">
                     {item.tech.map((t) => (
                       <Tag key={t}>{t}</Tag>
                     ))}
                   </div>
-                </div>
-              </motion.div>
+                )}
+              </li>
             ))}
+            </ol>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
