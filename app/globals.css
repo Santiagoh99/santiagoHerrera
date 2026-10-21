@@ -17,6 +17,7 @@
   --accent-muted:      rgba(255,178,36,0.10);
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 /* Reserved for light mode toggle — not built yet */
@@ -209,6 +210,21 @@
   from { stroke-dashoffset: 1; }
   to   { stroke-dashoffset: 0; }
 }
+
+/* 5. Project illustrations (components/ui/Illustration.tsx): user-triggered,
+      resting state = final frame. Color/opacity always transition; movement
+      only without reduced motion. `data-reset` snaps to frame 0 instead of
+      animating backwards. */
+.demo-fx {
+  transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, opacity 200ms ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .demo-fx {
+    transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, opacity 200ms ease,
+      transform 600ms var(--ease-in-out);
+  }
+}
+[data-reset] .demo-fx { transition: none; }
 
 /* Press feedback for filled and outline buttons. */
 .press {

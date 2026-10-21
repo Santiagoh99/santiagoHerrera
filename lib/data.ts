@@ -8,9 +8,9 @@ export const siteConfig = {
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "http://localhost:3000"),
-  stackLine: "Full stack engineer — Node.js, Next.js, TypeScript.",
+  stackLine: "Buenos Aires fintech by day. U.S. soccer payments, in English.",
   tagline:
-    "4+ years shipping production software: investment platform features at Santander, and the registration, payments and e-commerce systems of a USL League One club.",
+    "At Santander I build investment platform features in a high-availability environment. For a USL League One club I built the tournament registration, PayPal checkout and online store — solo and remotely.",
   metaDescription:
     "Full Stack Software Engineer in Buenos Aires, open to remote work. 4+ years with Node.js, NestJS, Next.js and TypeScript — fintech at Santander, payments and e-commerce for a USL League One club.",
   currently: ["Santander Tecnología", "Port St. Lucie SC (USL League One)"],
@@ -186,6 +186,19 @@ export type Project = {
   architecture?: Architecture;
   /** Santiago's own retrospective. The section renders only when this is filled in. */
   whatIdChange?: string[];
+  /** Production incidents. An entry renders only once all three fields are filled in. */
+  incidents?: Incident[];
+  /** Interactive "Illustration" next to the case study. In-diagram labels live in `components/ui/Illustration.tsx`. */
+  illustration?: { kind: "race" | "payment" | "parse"; caption: string };
+  /** Short looping clip (muted, lazy). Takes precedence over `screenshot`; `poster` is shown until it plays. */
+  video?: { src: string; poster: string };
+};
+
+export type Incident = {
+  title: string;
+  whatHappened: string;
+  howIFound: string;
+  whatIChanged: string;
 };
 
 export type Architecture = {
@@ -242,6 +255,68 @@ export const projects: Project[] = [
     },
     // TODO(Santiago): your own retrospective, e.g. 2-3 bullets. Section stays hidden until filled.
     whatIdChange: [],
+    illustration: {
+      kind: "race",
+      caption:
+        "Two registrations reach the last spot at the same moment. One atomic Supabase RPC checks capacity and reserves in a single step, so exactly one gets through.",
+    },
+    featured: true,
+  },
+  {
+    title: "Port St. Lucie SC — Official Website",
+    subtitle: "Taking a designed prototype to production on a locked-down WordPress",
+    description:
+      "The club's public site (Home, Join Us, Partners, Academy, Staff) runs on a WordPress multisite managed by SportsEngine/USL. The club's design team built an HTML/CSS/JS prototype; I own the engineering that ships it to production and keeps it running.",
+    problem:
+      "The WordPress install is managed by the league's platform provider: no plugins, no server or SFTP access, no theme edits. Every section had to work as a pasted Custom HTML block, and every form had to reach the club's email marketing without a backend of our own.",
+    role: "Production engineer. Design by the club's design team; I built the block compiler and asset pipeline, wired forms, news and ticketing, and fix what breaks inside WordPress.",
+    keyDecisions: [
+      "A Python compiler turns each section into a standalone Custom HTML block: CSS namespaced under one wrapper class for two-way isolation from the theme, and JS shipped as a data URI because WordPress rewrites inline script text (`&&` becomes `&#038;&#038;`) and breaks it",
+      "A second build path for Media Library-only access: an asset-mapping step that resolves each uploaded file's unpredictable URL, since there is no shared asset base and .woff2 uploads are rejected",
+      "Newsletter, partner contact and tryouts forms use a proxy pattern: our styled form fills a hidden ActiveCampaign embed and detects success with a MutationObserver, selecting by class because the embed randomizes its id on every load",
+      "The news section reads real posts from the WordPress REST API (a custom post type) client-side, and falls back silently to static cards if the request fails, so it never renders empty",
+      "The theme's native header can only be restyled with CSS; that reskin was verified against the real adaptive menu by loading the live draft in a fresh iframe per viewport width",
+    ],
+    tech: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Web Components",
+      "Python",
+      "WordPress",
+      "SportsEngine",
+      "ActiveCampaign",
+      "WP REST API",
+      "Vivenu",
+    ],
+    links: { live: "https://www.portstluciesc.com/home/" },
+    screenshot: "/img/pslsc-site.jpg",
+    architecture: {
+      summary:
+        "Sections and web components are compiled into standalone blocks, pasted into the league-managed WordPress, and talk to ActiveCampaign, the WordPress REST API and the Vivenu ticketing site from the browser.",
+      tiers: [
+        {
+          label: "Source",
+          nodes: [
+            { id: "src", label: "Sections", note: "1 file = 1 block" },
+            { id: "wc", label: "Web components", note: "<psl-*>" },
+          ],
+        },
+        { label: "Build", nodes: [{ id: "cc", label: "Block compiler", note: "Python" }] },
+        { label: "Host", nodes: [{ id: "wp", label: "WordPress", note: "Custom HTML blocks · SportsEngine" }] },
+        {
+          label: "Services",
+          nodes: [
+            { id: "ac", label: "ActiveCampaign", note: "3 forms via proxy" },
+            { id: "rest", label: "WP REST API", note: "news" },
+            { id: "viv", label: "Vivenu", note: "ticketing" },
+          ],
+        },
+      ],
+      edges: [["src", "cc"], ["wc", "cc"], ["cc", "wp"], ["wp", "ac"], ["wp", "rest"], ["wp", "viv"]],
+    },
+    // TODO(Santiago): your own retrospective. Section stays hidden until filled.
+    whatIdChange: [],
     featured: true,
   },
   {
@@ -270,7 +345,7 @@ export const projects: Project[] = [
       "Resend",
     ],
     links: { live: "https://store.portstluciesc.com" },
-    screenshotPlaceholder: true,
+    screenshot: "/img/pslsc-store.jpg",
     // TODO(Santiago): confirm which service calls Supabase, PayPal, Redis and Resend.
     // Drawn from the Railway backend because it "isolates the supplier integration and secrets".
     architecture: {
@@ -294,6 +369,34 @@ export const projects: Project[] = [
     },
     // TODO(Santiago): your own retrospective. Section stays hidden until filled.
     whatIdChange: [],
+    // TODO(Santiago): confirm the wording and which project each belongs to (Store or Luca FC Cup),
+    // then write howIFound + whatIChanged. Each incident stays hidden until all three fields are filled.
+    incidents: [
+      {
+        title: "Order ID vs. Capture ID",
+        whatHappened: "The PayPal Order ID and the Capture ID were mixed up.",
+        howIFound: "",
+        whatIChanged: "",
+      },
+      {
+        title: "A completed payment shown as failed",
+        whatHappened: "A payment that had completed was shown as failed, because the transaction ID being checked didn't match.",
+        howIFound: "",
+        whatIChanged: "",
+      },
+      {
+        title: "Auth guard not applied",
+        whatHappened: "An auth guard existed but wasn't applied to the auth routes.",
+        howIFound: "",
+        whatIChanged: "",
+      },
+    ],
+    // TODO(Santiago): confirm the store treats the capture response and the webhook idempotently.
+    illustration: {
+      kind: "payment",
+      caption:
+        "PayPal Orders v2: the server creates the order, the buyer approves it, the server captures it and the webhook confirms it. Checkout is idempotent, so the order changes state once.",
+    },
     featured: true,
   },
   {
@@ -371,8 +474,33 @@ export const projects: Project[] = [
       "Vercel",
     ],
     // Repo is private — add `github` back once it is public.
+    // Root URL only shows a loading screen and the panel needs login, so no public link for now.
     links: {},
     screenshotPlaceholder: true,
+    illustration: {
+      kind: "parse",
+      caption:
+        "A free-form chat message goes to the Gemini API and comes back as structured data, validated with Zod before it's saved.",
+    },
+    featured: false,
+  },
+  {
+    title: "PSLSC Soccer School",
+    subtitle: "Pre-registration landing for the club's youth soccer school",
+    description:
+      "A standalone landing that collects pre-registrations from families (kids aged 5–13) while the full microsite is built. Plain HTML/CSS/JS on Vercel, with a full-screen intro video that doubles as the loading screen.",
+    problem:
+      "The club needed to start collecting leads for its soccer school right away, straight into ActiveCampaign with campaign attribution, without waiting for the WordPress site or depending on a third-party embed script.",
+    role: "Sole engineer. Built it from the club's brand manual, in the club's own repository.",
+    keyDecisions: [
+      "The form POSTs directly to ActiveCampaign instead of loading its embed script: on the club's main site, the consent manager and ad blockers were silently dropping that script, so submissions never arrived",
+      "Form logic (UTM capture, validation, field mapping) is a pure, DOM-free module with unit tests run by Node's built-in test runner",
+      "The intro video is cut to the exact frame before the next shot and encoded twice (720p for phones, 1080p for large screens); it is skipped under reduced motion, without autoplay, or if it hasn't started within 5 seconds",
+      "UTM parameters are captured into dedicated ActiveCampaign fields, with optional Meta Pixel and GA4 events, all switched on from a single config file",
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "ActiveCampaign", "Node test runner", "ffmpeg", "Vercel"],
+    links: { live: "https://soccer-school.portstluciesc.com", github: "https://github.com/ItPortstlucieSC/pslsc-school" },
+    screenshot: "/img/pslsc-school.jpg",
     featured: false,
   },
   {
@@ -398,7 +526,7 @@ export const projects: Project[] = [
       "Resend",
       "Upstash Redis",
     ],
-    links: { github: "https://github.com/Santiagoh99/lab.m" },
+    links: { live: "https://lab-m.vercel.app", github: "https://github.com/Santiagoh99/lab.m" },
     screenshot: "/img/labm-hero.jpg",
     featured: false,
   },

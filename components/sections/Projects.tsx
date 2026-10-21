@@ -3,9 +3,18 @@ import { ExternalLink, Github, ImageIcon } from "lucide-react";
 import Tag from "@/components/ui/Tag";
 import ArchitectureDiagram from "@/components/ui/ArchitectureDiagram";
 import SpotlightCard from "@/components/ui/SpotlightCard";
+import Illustration from "@/components/ui/Illustration";
+import LazyVideo from "@/components/ui/LazyVideo";
 import { projects as allProjects, projectsIntro, type Project } from "@/lib/data";
 
 function ProjectScreenshot({ project }: { project: Project }) {
+  if (project.video) {
+    return (
+      <div className="relative h-48 w-full overflow-hidden border-b border-border">
+        <LazyVideo {...project.video} label={`${project.title} preview`} />
+      </div>
+    );
+  }
   if (project.screenshot) {
     return (
       <div className="relative h-48 w-full overflow-hidden border-b border-border">
@@ -75,6 +84,37 @@ function Subhead({ children }: { children: React.ReactNode }) {
     <h4 className="text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground mb-3">
       {children}
     </h4>
+  );
+}
+
+function Incidents({ project }: { project: Project }) {
+  const incidents = (project.incidents ?? []).filter((i) => i.whatHappened && i.howIFound && i.whatIChanged);
+  if (incidents.length === 0) return null;
+  return (
+    <div>
+      <Subhead>Incidents</Subhead>
+      <div className="space-y-6">
+        {incidents.map((incident) => (
+          <div key={incident.title}>
+            <h5 className="text-sm font-semibold text-foreground mb-2">{incident.title}</h5>
+            <dl className="space-y-2 text-sm">
+              {(
+                [
+                  ["What happened", incident.whatHappened],
+                  ["How I found it", incident.howIFound],
+                  ["What I changed", incident.whatIChanged],
+                ] as const
+              ).map(([term, text]) => (
+                <div key={term} className="sm:grid sm:grid-cols-[8.5rem_1fr] sm:gap-4">
+                  <dt className="text-foreground/80 font-medium">{term}</dt>
+                  <dd className="text-muted-foreground leading-relaxed min-w-0">{text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -153,12 +193,14 @@ export default function Projects({ items = allProjects }: { items?: Project[] })
                       <Subhead>Key technical decisions</Subhead>
                       <Bullets items={project.keyDecisions} />
                     </div>
+                    {project.illustration && <Illustration illustration={project.illustration} />}
                     {project.whatIdChange && project.whatIdChange.length > 0 && (
                       <div>
                         <Subhead>What I&apos;d change</Subhead>
                         <Bullets items={project.whatIdChange} />
                       </div>
                     )}
+                    <Incidents project={project} />
                   </div>
                 </div>
 
@@ -199,6 +241,11 @@ export default function Projects({ items = allProjects }: { items?: Project[] })
                     <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                       {project.description}
                     </p>
+                    {project.illustration && (
+                      <div className="mb-4">
+                        <Illustration illustration={project.illustration} />
+                      </div>
+                    )}
                     {project.tech.length > 0 && (
                       <div className="flex flex-wrap gap-1.5">
                         {project.tech.map((t) => (

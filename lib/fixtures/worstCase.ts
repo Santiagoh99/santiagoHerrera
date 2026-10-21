@@ -81,12 +81,24 @@ export const worstProjects: Project[] = [
       edges: [["a", "b"], ["a", "c"], ["a", "d"], ["a", "e"], ["a", "f"], ["a", "g"]],
     },
     whatIdChange: ["Move PDF generation to a queue so registration latency doesn't depend on it"],
+    illustration: { kind: "payment", caption: "Worst case: a caption long enough to wrap several times at 375px, mentioning https://api-m.sandbox.paypal.com/v2/checkout/orders/{order_id}/capture as one unbreakable token." },
+    incidents: [
+      {
+        title: "PAYMENT.CAPTURE.COMPLETED webhook processed before the capture response returned to the client",
+        whatHappened: "https://api-m.sandbox.paypal.com/v2/checkout/orders/{order_id}/capture returned 201 while the order row still read PENDING.",
+        howIFound: "x",
+        whatIChanged: "Keyed the update on the capture ID and made it a no-op when the order is already PAID, so either path can arrive first.",
+      },
+      { title: "Half-filled incident (must not render)", whatHappened: "Only this field.", howIFound: "", whatIChanged: "" },
+    ],
   },
   {
     ...base,
     title: "Q",
     subtitle: "",
     featured: true,
+    illustration: { kind: "race", caption: "" },
+    video: { src: "/missing-clip.mp4", poster: "/img/labm-hero.jpg" },
   },
   {
     ...base,
@@ -94,6 +106,7 @@ export const worstProjects: Project[] = [
     featured: false,
     links: { github: "https://github.com/Santiagoh99/lab.m" },
     screenshot: "/img/labm-hero.jpg",
+    illustration: { kind: "parse", caption: "Short." },
     tech: ["Next.js", "Framer Motion", "Lenis", "React Hook Form", "Resend", "Upstash Redis", "Tailwind CSS", "TypeScript", "Vercel", "WhatsApp deep links"],
   },
 ];
