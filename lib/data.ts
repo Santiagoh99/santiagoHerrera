@@ -158,7 +158,7 @@ export const experience: ExperienceItem[] = [
     description:
       "Ongoing freelance work alongside full-time roles. Built responsive websites, mobile apps, and production SaaS platforms for clients in Argentina and LATAM.",
     highlights: [
-      "Built Cancha-hub, a multi-tenant SaaS court-booking platform (Next.js 14, Supabase)",
+      "Built SportHub, a multi-tenant booking manager for courts and classes (Next.js 14, Supabase)",
       "Designed and built the LAB.<3M brand site, a fashion image-consulting studio's landing page",
       "Built a React Native personal-credit app: simulator, installments, merchants and credit authorization codes",
       "Built e-commerce for independent fashion brands (Ecklypce, Pilcha SM)",
@@ -381,6 +381,76 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    title: "PSLSC Soccer School",
+    subtitle: "Pre-registration landing for the club's youth soccer school",
+    description:
+      "A standalone landing that collects pre-registrations from families (kids aged 5–13) while the full microsite is built. Plain HTML/CSS/JS on Vercel, with a full-screen intro video that doubles as the loading screen.",
+    problem:
+      "The club needed to start collecting leads for its soccer school right away, straight into ActiveCampaign with campaign attribution, without waiting for the WordPress site or depending on a third-party embed script.",
+    role: "Sole engineer. Built it from the club's brand manual, in the club's own repository.",
+    keyDecisions: [
+      "The form POSTs directly to ActiveCampaign instead of loading its embed script: on the club's main site, the consent manager and ad blockers were silently dropping that script, so submissions never arrived",
+      "Form logic (UTM capture, validation, field mapping) is a pure, DOM-free module with unit tests run by Node's built-in test runner",
+      "The intro video is cut to the exact frame before the next shot and encoded twice (720p for phones, 1080p for large screens); it is skipped under reduced motion, without autoplay, or if it hasn't started within 5 seconds",
+      "UTM parameters are captured into dedicated ActiveCampaign fields, with optional Meta Pixel and GA4 events, all switched on from a single config file",
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "ActiveCampaign", "Node test runner", "ffmpeg", "Vercel"],
+    links: { live: "https://soccer-school.portstluciesc.com", github: "https://github.com/ItPortstlucieSC/pslsc-school" },
+    screenshot: "/img/pslsc-school.jpg",
+    featured: true,
+  },
+  {
+    title: "SportHub",
+    subtitle: "Booking manager for sports venues: courts and classes",
+    description:
+      "A booking manager for sports venues in Argentina and LATAM: players book a court or a class in seconds, without calls or waiting, and each venue manages its schedule, memberships and customers. Multiple venues run on a single deployment.",
+    problem:
+      "Sports venues in LATAM were managing bookings via WhatsApp and spreadsheets. No affordable, localized SaaS solution existed for small-to-mid-size clubs.",
+    role: "Sole engineer and designer. Designed the multi-tenant architecture, built all frontend and backend, deployed on Vercel + Supabase.",
+    keyDecisions: [
+      "Row-Level Security (RLS) on Supabase enforces tenant isolation at the database layer — no tenant can read another's data even if there's a bug in application logic",
+      "Next.js 14 App Router with server components for fast first-paint on dashboard pages with a lot of data",
+      "Role-based dashboards (admin / venue owner / client) driven by a single auth flow — Supabase Auth stores the role claim in the JWT",
+    ],
+    tech: [
+      "Next.js 14",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Row-Level Security",
+      "Tailwind CSS",
+      "Vercel",
+    ],
+    links: { live: "https://sport-hub-lemon.vercel.app" },
+    screenshot: "/img/sporthub.jpg",
+    architecture: {
+      summary:
+        "Admin, venue-owner and client dashboards share one Next.js App Router app on Vercel; Supabase Auth carries the role claim and Postgres RLS isolates tenants.",
+      tiers: [
+        {
+          label: "Roles",
+          nodes: [
+            { id: "admin", label: "Admin" },
+            { id: "owner", label: "Venue owner" },
+            { id: "client", label: "Client" },
+          ],
+        },
+        { label: "App", nodes: [{ id: "app", label: "Next.js App Router", note: "server components · Vercel" }] },
+        {
+          label: "Data",
+          nodes: [
+            { id: "auth", label: "Supabase Auth", note: "role claim in JWT" },
+            { id: "db", label: "Postgres", note: "RLS per tenant" },
+          ],
+        },
+      ],
+      edges: [["admin", "app"], ["owner", "app"], ["client", "app"], ["app", "auth"], ["app", "db"]],
+    },
+    // TODO(Santiago): your own retrospective. Section stays hidden until filled.
+    whatIdChange: [],
+    featured: true,
+  },
+  {
     title: "Luca FC Cup",
     subtitle: "Tournament registration system for a USL League One club",
     description:
@@ -405,7 +475,7 @@ export const projects: Project[] = [
       "Vercel",
     ],
     links: {},
-    screenshotPlaceholder: true,
+    // No screenshot yet: the card renders without an image block.
     architecture: {
       summary:
         "The club's WordPress/SportsEngine site leads into a Next.js registration app on Vercel; its API routes call Supabase, PayPal, Resend, Upstash Redis and the Meta Conversions API.",
@@ -435,80 +505,10 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    title: "PSLSC Soccer School",
-    subtitle: "Pre-registration landing for the club's youth soccer school",
-    description:
-      "A standalone landing that collects pre-registrations from families (kids aged 5–13) while the full microsite is built. Plain HTML/CSS/JS on Vercel, with a full-screen intro video that doubles as the loading screen.",
-    problem:
-      "The club needed to start collecting leads for its soccer school right away, straight into ActiveCampaign with campaign attribution, without waiting for the WordPress site or depending on a third-party embed script.",
-    role: "Sole engineer. Built it from the club's brand manual, in the club's own repository.",
-    keyDecisions: [
-      "The form POSTs directly to ActiveCampaign instead of loading its embed script: on the club's main site, the consent manager and ad blockers were silently dropping that script, so submissions never arrived",
-      "Form logic (UTM capture, validation, field mapping) is a pure, DOM-free module with unit tests run by Node's built-in test runner",
-      "The intro video is cut to the exact frame before the next shot and encoded twice (720p for phones, 1080p for large screens); it is skipped under reduced motion, without autoplay, or if it hasn't started within 5 seconds",
-      "UTM parameters are captured into dedicated ActiveCampaign fields, with optional Meta Pixel and GA4 events, all switched on from a single config file",
-    ],
-    tech: ["HTML", "CSS", "JavaScript", "ActiveCampaign", "Node test runner", "ffmpeg", "Vercel"],
-    links: { live: "https://soccer-school.portstluciesc.com", github: "https://github.com/ItPortstlucieSC/pslsc-school" },
-    screenshot: "/img/pslsc-school.jpg",
-    featured: true,
-  },
-  {
-    title: "Cancha-hub",
-    subtitle: "Multi-tenant SaaS court-booking platform",
-    description:
-      "A production SaaS platform for sports venues in Argentina and LATAM to manage court bookings, memberships, and customer access. Built to handle multiple venues under a single deployment.",
-    problem:
-      "Sports venues in LATAM were managing bookings via WhatsApp and spreadsheets. No affordable, localized SaaS solution existed for small-to-mid-size clubs.",
-    role: "Sole engineer and designer. Designed the multi-tenant architecture, built all frontend and backend, deployed on Vercel + Supabase.",
-    keyDecisions: [
-      "Row-Level Security (RLS) on Supabase enforces tenant isolation at the database layer — no tenant can read another's data even if there's a bug in application logic",
-      "Next.js 14 App Router with server components for fast first-paint on dashboard pages with a lot of data",
-      "Role-based dashboards (admin / venue owner / client) driven by a single auth flow — Supabase Auth stores the role claim in the JWT",
-    ],
-    tech: [
-      "Next.js 14",
-      "TypeScript",
-      "Supabase",
-      "PostgreSQL",
-      "Row-Level Security",
-      "Tailwind CSS",
-      "Vercel",
-    ],
-    links: { github: "https://github.com/Santiagoh99" },
-    screenshotPlaceholder: true,
-    architecture: {
-      summary:
-        "Admin, venue-owner and client dashboards share one Next.js App Router app on Vercel; Supabase Auth carries the role claim and Postgres RLS isolates tenants.",
-      tiers: [
-        {
-          label: "Roles",
-          nodes: [
-            { id: "admin", label: "Admin" },
-            { id: "owner", label: "Venue owner" },
-            { id: "client", label: "Client" },
-          ],
-        },
-        { label: "App", nodes: [{ id: "app", label: "Next.js App Router", note: "server components · Vercel" }] },
-        {
-          label: "Data",
-          nodes: [
-            { id: "auth", label: "Supabase Auth", note: "role claim in JWT" },
-            { id: "db", label: "Postgres", note: "RLS per tenant" },
-          ],
-        },
-      ],
-      edges: [["admin", "app"], ["owner", "app"], ["client", "app"], ["app", "auth"], ["app", "db"]],
-    },
-    // TODO(Santiago): your own retrospective. Section stays hidden until filled.
-    whatIdChange: [],
-    featured: true,
-  },
-  {
     title: "Fecalpo",
     subtitle: "AI chatbot on WhatsApp for shared household expenses",
     description:
-      "A zero-cost WhatsApp bot that replaces a paid expense-splitting app. Reads free-form text or voice messages, extracts structured expense and shopping-list data with an LLM, and tracks who owes whom.",
+      "A zero-cost WhatsApp bot that replaces a paid expense-splitting app. Reads free-form text or voice messages, extracts structured expense and shopping-list data with an LLM, and tracks who owes whom. A mobile web panel shows the month's spending by category.",
     problem:
       "Paid expense-splitting apps require both people to open a separate app. The goal was a $0, zero-friction alternative that lives entirely inside a chat both people already use daily.",
     role: "Sole engineer and designer — personal project, built end to end solo.",
@@ -530,8 +530,8 @@ export const projects: Project[] = [
     // Repo is private — add `github` back once it is public.
     // Root URL only shows a loading screen and the panel needs login, so no public link for now.
     links: {},
-    // Rendered from the bot's real reply strings (lib/handler.ts in ChatBot-FeCalPo).
-    screenshot: "/img/fecalpo-chat.png",
+    // Real captures: the web panel (partner name blurred, panel link left out) and the bot's help message.
+    screenshot: "/img/fecalpo.jpg",
     featured: false,
   },
   {
