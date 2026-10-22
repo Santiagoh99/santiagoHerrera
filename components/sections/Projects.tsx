@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ExternalLink, Github, ImageIcon } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import Tag from "@/components/ui/Tag";
 import ArchitectureDiagram from "@/components/ui/ArchitectureDiagram";
 import SpotlightCard from "@/components/ui/SpotlightCard";
@@ -35,12 +35,8 @@ function ProjectScreenshot({ project, featured }: { project: Project; featured?:
       />
     );
   } else {
-    return (
-      <div className="h-24 md:h-32 flex items-center justify-center gap-2 border-b border-border bg-background/40 text-xs text-muted-foreground">
-        <ImageIcon size={16} aria-hidden="true" />
-        Screenshot coming soon
-      </div>
-    );
+    // No image yet: render nothing rather than an empty placeholder box.
+    return null;
   }
 
   if (!featured) {
@@ -186,7 +182,7 @@ export default function Projects({ items = allProjects }: { items?: Project[] })
             >
               <ProjectScreenshot project={project} featured />
 
-              <div className="p-6 lg:p-8 break-words border-t border-border">
+              <div className={`p-6 lg:p-8 break-words ${project.screenshot || project.video ? "border-t border-border" : ""}`}>
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-8">
                   <div className="min-w-0">
                     <p className="font-mono text-xs font-medium text-accent mb-2 tabular">
