@@ -1,28 +1,25 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { siteConfig } from "@/lib/data";
 
+// Link preview (WhatsApp, LinkedIn, Slack, X). Prerendered at build time from
+// local files only — no network fetch, so the build can't fail on Google Fonts.
+// Satori can't read woff2/variable fonts, hence the TTFs in app/og-assets/.
 export const alt = `${siteConfig.name} — ${siteConfig.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Static font subset from Google Fonts (TTF, which Satori needs). Fetched at build time.
-async function loadFont(family: string, axes: string, text: string) {
-  const css = await fetch(
-    `https://fonts.googleapis.com/css2?family=${family}:${axes}&text=${encodeURIComponent(text)}`
-  ).then((r) => r.text());
-  const url = css.match(/src: url\((.+?)\) format\('(opentype|truetype)'\)/)?.[1];
-  if (!url) throw new Error(`No TTF for ${family} ${axes}`);
-  return fetch(url).then((r) => r.arrayBuffer());
-}
+const asset = (file: string) => readFile(join(process.cwd(), "app/og-assets", file));
 
 export default async function Image() {
-  const stack = ["Node.js", "NestJS", "Next.js", "TypeScript", "PostgreSQL"];
-  const body = [siteConfig.role, siteConfig.location, siteConfig.availability, ...stack].join("");
-
-  const [display, text] = await Promise.all([
-    loadFont("Archivo", "wdth,wght@125,800", siteConfig.name),
-    loadFont("IBM+Plex+Mono", "wght@500", body + " ·"),
+  const [mono500, mono400, photo] = await Promise.all([
+    asset("plex-mono-500.ttf"),
+    asset("plex-mono-400.ttf"),
+    asset("me-og.jpg"),
   ]);
+  const photoSrc = `data:image/jpeg;base64,${photo.toString("base64")}`;
+  const stack = ["Node.js", "NestJS", "Next.js", "TypeScript", "PostgreSQL"];
 
   return new ImageResponse(
     (
@@ -31,66 +28,65 @@ export default async function Image() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "96px 80px 72px",
+          padding: "64px 72px",
           background: "#0C0A09",
+          backgroundImage:
+            "radial-gradient(circle at 12% 0%, rgba(255,178,36,0.14), transparent 45%), radial-gradient(circle at 100% 100%, rgba(120,90,60,0.22), transparent 50%)",
           color: "#FAFAF9",
-          fontFamily: "IBM Plex Mono",
+          fontFamily: "Plex Mono",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              fontFamily: "Archivo",
-              fontSize: 104,
-              lineHeight: 1,
-              letterSpacing: "-0.03em",
-            }}
-          >
-            {siteConfig.name}
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", flex: 1 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 28 }}>
+            <span>{siteConfig.name}</span>
+            <span
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                fontSize: 20,
+                fontWeight: 400,
+                color: "#D6D3D1",
+                padding: "6px 16px",
+                borderRadius: 999,
+                border: "1px solid #44403C",
+              }}
+            >
+              <span style={{ width: 10, height: 10, borderRadius: 999, background: "#4ADE80" }} />
+              {siteConfig.availability}
+            </span>
           </div>
-          <div style={{ display: "flex", fontSize: 34, color: "#FFB224", marginTop: 24 }}>
-            {siteConfig.role}
+
+          <div style={{ display: "flex", flexDirection: "column", fontSize: 128, lineHeight: 0.95, letterSpacing: "-0.05em" }}>
+            <span>Full-stack</span>
+            <span style={{ display: "flex", alignItems: "flex-end" }}>
+              Developer
+              <span style={{ width: 52, height: 14, marginLeft: 14, marginBottom: 18, background: "#FFB224", borderRadius: 3 }} />
+            </span>
           </div>
-          <div style={{ display: "flex", gap: 14, marginTop: 40 }}>
-            {stack.map((t) => (
-              <div
-                key={t}
-                style={{
-                  display: "flex",
-                  fontSize: 26,
-                  padding: "8px 20px",
-                  borderRadius: 8,
-                  border: "1px solid #44403C",
-                  background: "#1C1917",
-                  color: "#A8A29E",
-                }}
-              >
-                {t}
-              </div>
-            ))}
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 14, fontWeight: 400 }}>
+            <span style={{ fontSize: 24, color: "#FFB224" }}>Building for the U.S. and Argentina</span>
+            <span style={{ fontSize: 22, color: "#A8A29E" }}>{stack.join(" / ")}</span>
           </div>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            fontSize: 28,
-            color: "#A8A29E",
-            borderTop: "1px solid #44403C",
-            paddingTop: 28,
-          }}
-        >
-          {`${siteConfig.location} · ${siteConfig.availability}`}
+        <div style={{ display: "flex", alignItems: "center", marginLeft: 40 }}>
+          <img
+            src={photoSrc}
+            width={300}
+            height={356}
+            alt=""
+            style={{ borderRadius: 28, border: "1px solid #44403C", objectFit: "cover" }}
+          />
         </div>
       </div>
     ),
     {
       ...size,
       fonts: [
-        { name: "Archivo", data: display, weight: 800, style: "normal" },
-        { name: "IBM Plex Mono", data: text, weight: 500, style: "normal" },
+        { name: "Plex Mono", data: mono500, weight: 500, style: "normal" },
+        { name: "Plex Mono", data: mono400, weight: 400, style: "normal" },
       ],
     }
   );
