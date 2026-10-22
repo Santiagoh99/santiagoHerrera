@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Santiago Herrera",
-  role: "Full Stack Software Engineer",
+  role: "Full Stack Developer",
   // Set NEXT_PUBLIC_SITE_URL once the production domain exists; Vercel's
   // production URL is used as a fallback for canonical + OG links.
   url:
@@ -8,28 +8,29 @@ export const siteConfig = {
     (process.env.VERCEL_PROJECT_PRODUCTION_URL
       ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
       : "http://localhost:3000"),
-  stackLine: "Buenos Aires fintech by day. U.S. soccer payments, in English.",
+  stack: ["Node.js", "NestJS", "Next.js", "React", "TypeScript", "PostgreSQL", "Supabase", "AWS"],
   tagline:
-    "At Santander I build investment platform features in a high-availability environment. For a USL League One club I built the tournament registration, PayPal checkout and online store — solo and remotely.",
+    "I build web products for companies in the U.S. and Argentina: payments, e-commerce, SaaS and fintech platforms, from the database to the interface.",
   metaDescription:
-    "Full Stack Software Engineer in Buenos Aires, open to remote work. 4+ years with Node.js, NestJS, Next.js and TypeScript — fintech at Santander, payments and e-commerce for a USL League One club.",
-  currently: ["Santander Tecnología", "Port St. Lucie SC (USL League One)"],
+    "Full Stack Developer in Buenos Aires building payments, e-commerce, SaaS and fintech products for companies in the U.S. and Argentina. Node.js, NestJS, Next.js, TypeScript, PostgreSQL.",
   location: "Buenos Aires, Argentina",
   availability: "Open to remote work",
   email: "santiherrera99@icloud.com",
   linkedin: "https://www.linkedin.com/in/santiago-martin-herrera",
   github: "https://github.com/Santiagoh99",
+  // TODO(Santiago): add your Instagram URL; the link shows up in the contact section once set.
+  instagram: null as string | null,
   resumeUrl: "/Santiago_Herrera_CV.pdf" as string | null,
 };
 
 // `**text**` marks emphasis; rendered by the About section.
 export const about = {
-  heading: "Fintech at enterprise scale. Full products for independent clients.",
+  heading: "Most of what I build moves money or books something.",
   paragraphs: [
-    "I'm a Full Stack Software Engineer in Buenos Aires with 4+ years building web and mobile applications in **fintech and enterprise** environments.",
-    "At **Santander Tecnología Argentina** I build investment platform features used by real clients: NestJS APIs, microservices and microfrontends, PostgreSQL, MongoDB and Oracle, shipped through GitLab CI and OpenShift. I'm now also working in the team's data engineering scope (Hive, AWS, Power BI, Grafana).",
-    "Since 2025 I've worked remotely, in English, with **Port St. Lucie SC (USL League One)**: their WordPress VIP multisite, a tournament registration system with PayPal payments, and the club's online store.",
-    "I build AI features as part of the normal stack — LLM parsing with Gemini and Zod-validated output, and agentic workflows with Claude Code.",
+    "Checkouts, ticket deposits, reservations, investment platform features. I care that it works the day it launches and keeps working after.",
+    "Today I build for a **bank's investment platform in Argentina** and for a **professional soccer club in the U.S.**, remotely and in English, plus SaaS products for restaurants and sports venues.",
+    "Before that, and alongside it: **React Native mobile apps**, e-commerce for independent brands and internal tools. Lately I'm adding data engineering to the stack: ingestion pipelines with Hive and AWS, Power BI and Grafana.",
+    "I build AI features as part of the normal stack: LLM parsing with Gemini and Zod-validated output, and agentic workflows with Claude Code.",
   ],
   highlightsTitle: "What I bring",
   highlights: [
@@ -49,13 +50,12 @@ export const about = {
 
 export const contact = {
   heading: "Let's work together.",
-  body: "I'm open to full-time remote roles and freelance projects. If you have a role in mind or a problem to talk through, email is the fastest way to reach me.",
-  responseNote: "I respond within 24 hours on weekdays.",
+  body: "I'm open to full-time remote roles and freelance projects. Tell me what you're building and I'll get back to you by email.",
   timezone: "Buenos Aires, Argentina (UTC-3) · Remote-first",
 };
 
 export const projectsIntro =
-  "Systems built for real clients — payments, concurrency and multi-tenant data — plus a couple of smaller builds.";
+  "Production systems for real clients, in the order I'd want you to see them.";
 
 export type ExperienceItem = {
   title: string;
@@ -160,7 +160,8 @@ export const experience: ExperienceItem[] = [
     highlights: [
       "Built Cancha-hub, a multi-tenant SaaS court-booking platform (Next.js 14, Supabase)",
       "Designed and built the LAB.<3M brand site, a fashion image-consulting studio's landing page",
-      "Developed React Native mobile applications",
+      "Built a React Native personal-credit app: simulator, installments, merchants and credit authorization codes",
+      "Built e-commerce for independent fashion brands (Ecklypce, Pilcha SM)",
       "Delivered custom stock management and booking systems",
     ],
     tech: ["Next.js", "React Native", "Supabase", "Node.js", "TypeScript"],
@@ -208,60 +209,6 @@ export type Architecture = {
 };
 
 export const projects: Project[] = [
-  {
-    title: "Luca FC Cup",
-    subtitle: "Tournament registration system for a USL League One club",
-    description:
-      "Full tournament registration system built for Port St. Lucie SC (USL League One). Handles team registration, payment processing, confirmation emails with PDF attachments, and conversion tracking — all running on free-tier infrastructure.",
-    problem:
-      "The club needed a custom registration flow for their annual tournament that integrated with their existing WordPress/SportsEngine site, accepted payments, and sent branded confirmation emails with PDF documents — with no budget for paid backend infrastructure.",
-    role: "Sole engineer on the registration system. Coordinated with club staff and USL's tech team for requirements and deployment.",
-    keyDecisions: [
-      "Atomic Supabase RPC functions handle concurrent registration for limited-capacity events — prevents double-booking without application-level locking",
-      "Upstash Redis rate limiting on the registration endpoint prevents form abuse without a dedicated backend service",
-      "Resend + server-side PDF generation for confirmation emails keeps everything in the Next.js API routes — no extra service to maintain",
-      "Meta Conversions API wired server-side so registrations are tracked accurately regardless of browser ad blockers",
-    ],
-    tech: [
-      "Next.js",
-      "TypeScript",
-      "Supabase",
-      "PayPal Orders API v2",
-      "Resend",
-      "Upstash Redis",
-      "Meta Conversions API",
-      "Vercel",
-    ],
-    links: {},
-    screenshotPlaceholder: true,
-    architecture: {
-      summary:
-        "The club's WordPress/SportsEngine site leads into a Next.js registration app on Vercel; its API routes call Supabase, PayPal, Resend, Upstash Redis and the Meta Conversions API.",
-      tiers: [
-        { label: "Entry", nodes: [{ id: "site", label: "Club site", note: "WordPress / SportsEngine" }] },
-        { label: "App", nodes: [{ id: "app", label: "Registration app", note: "Next.js API routes · Vercel" }] },
-        {
-          label: "Services",
-          nodes: [
-            { id: "db", label: "Supabase", note: "atomic RPC" },
-            { id: "pay", label: "PayPal", note: "Orders API v2" },
-            { id: "mail", label: "Resend", note: "PDF attachments" },
-            { id: "rl", label: "Upstash Redis", note: "rate limit" },
-            { id: "capi", label: "Meta CAPI", note: "server-side" },
-          ],
-        },
-      ],
-      edges: [["site", "app"], ["app", "db"], ["app", "pay"], ["app", "mail"], ["app", "rl"], ["app", "capi"]],
-    },
-    // TODO(Santiago): your own retrospective, e.g. 2-3 bullets. Section stays hidden until filled.
-    whatIdChange: [],
-    illustration: {
-      kind: "race",
-      caption:
-        "Two registrations reach the last spot at the same moment. One atomic Supabase RPC checks capacity and reserves in a single step, so exactly one gets through.",
-    },
-    featured: true,
-  },
   {
     title: "Port St. Lucie SC — Official Website",
     subtitle: "Taking a designed prototype to production on a locked-down WordPress",
@@ -400,6 +347,113 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Arribando",
+    subtitle: "Reservations and orders SaaS for restaurants, run over WhatsApp",
+    description:
+      "A multi-tenant product for restaurants: online reservations, takeaway orders and an editable menu, managed from one panel and connected to WhatsApp. Sold in three plans and already used by Círculo, a restaurant in Buenos Aires.",
+    problem:
+      "Small restaurants take reservations and orders through scattered WhatsApp chats and calls. They need one place to see and confirm everything, with their own branding.",
+    role: "Creator. Built the product end to end under Atlantic Four Tech, from the first client (Círculo) to a sellable plan structure.",
+    keyDecisions: [
+      "Multi-tenant Supabase schema with Row-Level Security on every table, so each restaurant only ever sees its own reservations, orders and menu",
+      "Supabase Realtime pushes new reservations and orders into the owner's panel without a refresh",
+      "Upstash Redis rate limiting on the public reservation and order flows, which are open to anyone",
+      "Database backups with GitHub Actions to Cloudflare R2, outside the main provider",
+      "The public site includes an interactive demo of the full flow that saves and sends nothing, so restaurants can try it before buying",
+    ],
+    tech: [
+      "Next.js 14",
+      "TypeScript",
+      "Supabase",
+      "Supabase Realtime",
+      "Row-Level Security",
+      "MercadoPago",
+      "Resend",
+      "Upstash Redis",
+      "GitHub Actions",
+      "Cloudflare R2",
+      "Vercel",
+    ],
+    links: { live: "https://arribando.atlanticfourtech.com" },
+    screenshot: "/img/arribando.jpg",
+    // TODO(Santiago): confirm Arribando is the productized version of the Círculo platform (Resa Hub); the stack and decisions above come from that project. Also confirm the Realtime use in the panel.
+    whatIdChange: [],
+    featured: true,
+  },
+  {
+    title: "Luca FC Cup",
+    subtitle: "Tournament registration system for a USL League One club",
+    description:
+      "Full tournament registration system built for Port St. Lucie SC (USL League One). Handles team registration, payment processing, confirmation emails with PDF attachments, and conversion tracking — all running on free-tier infrastructure.",
+    problem:
+      "The club needed a custom registration flow for their annual tournament that integrated with their existing WordPress/SportsEngine site, accepted payments, and sent branded confirmation emails with PDF documents — with no budget for paid backend infrastructure.",
+    role: "Sole engineer on the registration system. Coordinated with club staff and USL's tech team for requirements and deployment.",
+    keyDecisions: [
+      "Atomic Supabase RPC functions handle concurrent registration for limited-capacity events — prevents double-booking without application-level locking",
+      "Upstash Redis rate limiting on the registration endpoint prevents form abuse without a dedicated backend service",
+      "Resend + server-side PDF generation for confirmation emails keeps everything in the Next.js API routes — no extra service to maintain",
+      "Meta Conversions API wired server-side so registrations are tracked accurately regardless of browser ad blockers",
+    ],
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "PayPal Orders API v2",
+      "Resend",
+      "Upstash Redis",
+      "Meta Conversions API",
+      "Vercel",
+    ],
+    links: {},
+    screenshotPlaceholder: true,
+    architecture: {
+      summary:
+        "The club's WordPress/SportsEngine site leads into a Next.js registration app on Vercel; its API routes call Supabase, PayPal, Resend, Upstash Redis and the Meta Conversions API.",
+      tiers: [
+        { label: "Entry", nodes: [{ id: "site", label: "Club site", note: "WordPress / SportsEngine" }] },
+        { label: "App", nodes: [{ id: "app", label: "Registration app", note: "Next.js API routes · Vercel" }] },
+        {
+          label: "Services",
+          nodes: [
+            { id: "db", label: "Supabase", note: "atomic RPC" },
+            { id: "pay", label: "PayPal", note: "Orders API v2" },
+            { id: "mail", label: "Resend", note: "PDF attachments" },
+            { id: "rl", label: "Upstash Redis", note: "rate limit" },
+            { id: "capi", label: "Meta CAPI", note: "server-side" },
+          ],
+        },
+      ],
+      edges: [["site", "app"], ["app", "db"], ["app", "pay"], ["app", "mail"], ["app", "rl"], ["app", "capi"]],
+    },
+    // TODO(Santiago): your own retrospective, e.g. 2-3 bullets. Section stays hidden until filled.
+    whatIdChange: [],
+    illustration: {
+      kind: "race",
+      caption:
+        "Two registrations reach the last spot at the same moment. One atomic Supabase RPC checks capacity and reserves in a single step, so exactly one gets through.",
+    },
+    featured: true,
+  },
+  {
+    title: "PSLSC Soccer School",
+    subtitle: "Pre-registration landing for the club's youth soccer school",
+    description:
+      "A standalone landing that collects pre-registrations from families (kids aged 5–13) while the full microsite is built. Plain HTML/CSS/JS on Vercel, with a full-screen intro video that doubles as the loading screen.",
+    problem:
+      "The club needed to start collecting leads for its soccer school right away, straight into ActiveCampaign with campaign attribution, without waiting for the WordPress site or depending on a third-party embed script.",
+    role: "Sole engineer. Built it from the club's brand manual, in the club's own repository.",
+    keyDecisions: [
+      "The form POSTs directly to ActiveCampaign instead of loading its embed script: on the club's main site, the consent manager and ad blockers were silently dropping that script, so submissions never arrived",
+      "Form logic (UTM capture, validation, field mapping) is a pure, DOM-free module with unit tests run by Node's built-in test runner",
+      "The intro video is cut to the exact frame before the next shot and encoded twice (720p for phones, 1080p for large screens); it is skipped under reduced motion, without autoplay, or if it hasn't started within 5 seconds",
+      "UTM parameters are captured into dedicated ActiveCampaign fields, with optional Meta Pixel and GA4 events, all switched on from a single config file",
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "ActiveCampaign", "Node test runner", "ffmpeg", "Vercel"],
+    links: { live: "https://soccer-school.portstluciesc.com", github: "https://github.com/ItPortstlucieSC/pslsc-school" },
+    screenshot: "/img/pslsc-school.jpg",
+    featured: true,
+  },
+  {
     title: "Cancha-hub",
     subtitle: "Multi-tenant SaaS court-booking platform",
     description:
@@ -451,42 +505,8 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    title: "Arribando",
-    subtitle: "Reservations and orders SaaS for restaurants, run over WhatsApp",
-    description:
-      "A multi-tenant product for restaurants: online reservations, takeaway orders and an editable menu, managed from one panel and connected to WhatsApp. Sold in three plans and already used by Círculo, a restaurant in Buenos Aires.",
-    problem:
-      "Small restaurants take reservations and orders through scattered WhatsApp chats and calls. They need one place to see and confirm everything, with their own branding.",
-    role: "Creator. Built the product end to end under Atlantic Four Tech, from the first client (Círculo) to a sellable plan structure.",
-    keyDecisions: [
-      "Multi-tenant Supabase schema with Row-Level Security on every table, so each restaurant only ever sees its own reservations, orders and menu",
-      "Supabase Realtime pushes new reservations and orders into the owner's panel without a refresh",
-      "Upstash Redis rate limiting on the public reservation and order flows, which are open to anyone",
-      "Database backups with GitHub Actions to Cloudflare R2, outside the main provider",
-      "The public site includes an interactive demo of the full flow that saves and sends nothing, so restaurants can try it before buying",
-    ],
-    tech: [
-      "Next.js 14",
-      "TypeScript",
-      "Supabase",
-      "Supabase Realtime",
-      "Row-Level Security",
-      "MercadoPago",
-      "Resend",
-      "Upstash Redis",
-      "GitHub Actions",
-      "Cloudflare R2",
-      "Vercel",
-    ],
-    links: { live: "https://arribando.atlanticfourtech.com" },
-    screenshot: "/img/arribando.jpg",
-    // TODO(Santiago): confirm Arribando is the productized version of the Círculo platform (Resa Hub); the stack and decisions above come from that project. Also confirm the Realtime use in the panel.
-    whatIdChange: [],
-    featured: true,
-  },
-  {
     title: "Fecalpo",
-    subtitle: "AI-powered WhatsApp bot for shared household expenses",
+    subtitle: "AI chatbot on WhatsApp for shared household expenses",
     description:
       "A zero-cost WhatsApp bot that replaces a paid expense-splitting app. Reads free-form text or voice messages, extracts structured expense and shopping-list data with an LLM, and tracks who owes whom.",
     problem:
@@ -510,41 +530,18 @@ export const projects: Project[] = [
     // Repo is private — add `github` back once it is public.
     // Root URL only shows a loading screen and the panel needs login, so no public link for now.
     links: {},
-    screenshotPlaceholder: true,
-    illustration: {
-      kind: "parse",
-      caption:
-        "A free-form chat message goes to the Gemini API and comes back as structured data, validated with Zod before it's saved.",
-    },
-    featured: false,
-  },
-  {
-    title: "PSLSC Soccer School",
-    subtitle: "Pre-registration landing for the club's youth soccer school",
-    description:
-      "A standalone landing that collects pre-registrations from families (kids aged 5–13) while the full microsite is built. Plain HTML/CSS/JS on Vercel, with a full-screen intro video that doubles as the loading screen.",
-    problem:
-      "The club needed to start collecting leads for its soccer school right away, straight into ActiveCampaign with campaign attribution, without waiting for the WordPress site or depending on a third-party embed script.",
-    role: "Sole engineer. Built it from the club's brand manual, in the club's own repository.",
-    keyDecisions: [
-      "The form POSTs directly to ActiveCampaign instead of loading its embed script: on the club's main site, the consent manager and ad blockers were silently dropping that script, so submissions never arrived",
-      "Form logic (UTM capture, validation, field mapping) is a pure, DOM-free module with unit tests run by Node's built-in test runner",
-      "The intro video is cut to the exact frame before the next shot and encoded twice (720p for phones, 1080p for large screens); it is skipped under reduced motion, without autoplay, or if it hasn't started within 5 seconds",
-      "UTM parameters are captured into dedicated ActiveCampaign fields, with optional Meta Pixel and GA4 events, all switched on from a single config file",
-    ],
-    tech: ["HTML", "CSS", "JavaScript", "ActiveCampaign", "Node test runner", "ffmpeg", "Vercel"],
-    links: { live: "https://soccer-school.portstluciesc.com", github: "https://github.com/ItPortstlucieSC/pslsc-school" },
-    screenshot: "/img/pslsc-school.jpg",
+    // Rendered from the bot's real reply strings (lib/handler.ts in ChatBot-FeCalPo).
+    screenshot: "/img/fecalpo-chat.png",
     featured: false,
   },
   {
     title: "Xilox 3",
-    subtitle: "Website redesign for a home, industrial and automotive products company",
+    subtitle: "Corporate site for a home, industrial and automotive products company",
     description:
-      "A redesigned corporate site for Xilox 3, a supplier of products for homes, construction, industry and automotive. Editorial typography, large imagery and scroll-driven motion, with a visible control to pause all movement.",
+      "Corporate site for Xilox 3, a supplier of products for homes, construction, industry and automotive, in production. Editorial typography, large imagery and scroll-driven motion, with a visible control to pause all movement.",
     problem:
       "The company sells three product lines (home and construction, industry, automotive) to different kinds of buyers, all from one site.",
-    role: "Creator. Designed and built the demo.",
+    role: "Creator. Designed and built the site.",
     keyDecisions: [
       "Each product line gets its own full section with a single clear path to its catalog",
       "Motion is optional: a persistent \"Pause motion\" control stops every animation for visitors who prefer less movement",
@@ -583,57 +580,46 @@ export const projects: Project[] = [
     featured: false,
   },
   {
-    title: "Santander Investment Platform",
-    subtitle: "High-availability fintech investment platform",
+    title: "Personal credit app",
+    subtitle: "React Native mobile app for consumer credit at partner stores",
     description:
-      "Investment platform serving Santander Argentina customers, built in a high-availability fintech environment with strict code quality and monitoring requirements.",
+      "Freelance mobile app for a consumer-credit business: a loan simulator, installments, the list of partner merchants and an authorization flow that generates a code for a purchase at a given store.",
     problem:
-      "Enterprise-scale investment product requiring high availability, multiple data sources (relational, document, and legacy Oracle), and strict audit/monitoring requirements.",
-    role: "Full Stack Developer on a Scrum team. Owned backend API modules and contributed to microfrontend components.",
+      "Credit had to be authorized at the point of sale, at partner stores, from a phone.",
+    role: "Freelance mobile developer.",
     keyDecisions: [
-      "Microservices architecture with NestJS keeps each domain independently deployable",
-      "Polyglot persistence — PostgreSQL for transactional data, MongoDB for flexible document storage, Oracle for legacy integration",
-      "SonarQube quality gates and Jest coverage thresholds enforced in CI — no merge without passing them",
+      "Redux for global state and custom hooks for reusable logic",
+      "Yup schemas for form validation across the authorization and simulation flows",
     ],
-    tech: [
-      "NestJS",
-      "TypeScript",
-      "Node.js",
-      "PostgreSQL",
-      "MongoDB",
-      "Oracle",
-      "Docker",
-      "OpenShift",
-      "GitLab CI/CD",
-      "Dynatrace",
-    ],
+    tech: ["React Native", "Expo", "Redux", "Yup", "Firebase"],
     links: {},
-    screenshotPlaceholder: true,
-    architecture: {
-      summary:
-        "Microfrontend modules call NestJS microservices backed by PostgreSQL, MongoDB and Oracle; GitLab CI deploys to OpenShift and Dynatrace monitors production.",
-      tiers: [
-        { label: "Frontend", nodes: [{ id: "mfe", label: "Microfrontends" }] },
-        {
-          label: "Services",
-          nodes: [
-            { id: "svc", label: "NestJS microservices", note: "OpenShift · Dynatrace" },
-          ],
-        },
-        {
-          label: "Data",
-          nodes: [
-            { id: "pg", label: "PostgreSQL", note: "transactional" },
-            { id: "mongo", label: "MongoDB", note: "documents" },
-            { id: "ora", label: "Oracle", note: "legacy" },
-          ],
-        },
-      ],
-      edges: [["mfe", "svc"], ["svc", "pg"], ["svc", "mongo"], ["svc", "ora"]],
-    },
-    // TODO(Santiago): your own retrospective (keep it non-confidential). Section stays hidden until filled.
-    whatIdChange: [],
-    featured: true,
+    screenshot: "/img/credit-app.jpg",
+    featured: false,
+  },
+  {
+    title: "Ecklypce",
+    subtitle: "Fashion e-commerce with stock management",
+    description:
+      "Freelance e-commerce for an independent fashion brand, with a real-time inventory management system behind the storefront.",
+    problem: "The brand needed its own online store with stock kept in sync as it sold.",
+    role: "Freelance full stack developer.",
+    keyDecisions: ["Inventory updated in real time as orders come in"],
+    tech: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
+    links: { live: "https://www.ecklypce.com" },
+    screenshot: "/img/ecklypce-card.jpg",
+    featured: false,
+  },
+  {
+    title: "Pilcha SM",
+    subtitle: "Multi-brand clothing marketplace",
+    description: "Freelance marketplace that brings several clothing brands together, with an integrated payment system for online sales.",
+    problem: "Several small brands needed one place to sell online together.",
+    role: "Freelance full stack developer.",
+    keyDecisions: ["One checkout with integrated payments for products from several brands"],
+    tech: ["React", "Express", "PostgreSQL", "Stripe"],
+    links: { live: "https://pilchasm.github.io/pilcha.sm" },
+    screenshot: "/img/pilcha-card.jpg",
+    featured: false,
   },
 ];
 

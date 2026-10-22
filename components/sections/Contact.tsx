@@ -1,95 +1,50 @@
-import { Mail, Github, Linkedin, MapPin } from "lucide-react";
+import { Github, Instagram, Linkedin, MapPin } from "lucide-react";
 import { contact, siteConfig } from "@/lib/data";
+import ContactForm from "@/components/ui/ContactForm";
+import RevealWords from "@/components/ui/RevealWords";
+import SectionLabel from "@/components/ui/SectionLabel";
 
 const links = [
-  {
-    label: "Email",
-    value: siteConfig.email,
-    href: `mailto:${siteConfig.email}`,
-    icon: Mail,
-    description: "Best way to reach me",
-  },
-  {
-    label: "LinkedIn",
-    value: "linkedin.com/in/santiago-martin-herrera",
-    href: siteConfig.linkedin,
-    icon: Linkedin,
-    description: "Professional profile",
-  },
-  {
-    label: "GitHub",
-    value: "github.com/Santiagoh99",
-    href: siteConfig.github,
-    icon: Github,
-    description: "Open source & side projects",
-  },
+  { label: "LinkedIn", href: siteConfig.linkedin, icon: Linkedin },
+  { label: "GitHub", href: siteConfig.github, icon: Github },
+  ...(siteConfig.instagram ? [{ label: "Instagram", href: siteConfig.instagram, icon: Instagram }] : []),
 ];
 
 export default function Contact() {
   return (
     <section id="contact" className="py-24 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          {/* Left: text */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-12 lg:gap-16 items-start">
           <div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6 max-w-[12ch]">
-              {contact.heading}
+            <SectionLabel>Contact</SectionLabel>
+            <h2 className="mt-4 font-mono font-medium text-foreground tracking-[-0.04em] leading-[0.95] text-5xl md:text-6xl mb-6 max-w-[12ch]">
+              <RevealWords text={contact.heading} />
             </h2>
-            <p className="text-muted-foreground leading-relaxed mb-6">
-              {contact.body}
-            </p>
-            <p className="text-muted-foreground leading-relaxed">
-              {contact.responseNote}
-            </p>
+            <p className="text-muted-foreground leading-relaxed mb-8">{contact.body}</p>
 
-            <div className="mt-8 flex items-center gap-3 text-sm text-muted-foreground">
+            <ul className="flex flex-wrap gap-2 mb-8" role="list">
+              {links.map(({ label, href, icon: Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="press inline-flex items-center gap-2 min-h-11 px-4 rounded-lg border border-border bg-surface/60 text-sm font-medium text-muted-foreground hover:text-foreground hover:border-muted-foreground"
+                  >
+                    <Icon size={16} aria-hidden="true" />
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
               <MapPin size={16} className="flex-shrink-0" aria-hidden="true" />
               <span>{contact.timezone}</span>
             </div>
           </div>
 
-          {/* Right: contact links */}
-          <div className="space-y-3">
-            {links.map((link) => {
-              const Icon = link.icon;
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                  rel={
-                    link.href.startsWith("mailto")
-                      ? undefined
-                      : "noopener noreferrer"
-                  }
-                  className="flex items-center gap-4 p-4 bg-surface rounded-xl border border-border hover:border-muted-foreground transition-colors duration-150 group"
-                >
-                  <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-surface-elevated border border-border flex items-center justify-center text-muted-foreground group-hover:text-accent transition-colors duration-150">
-                    <Icon size={18} aria-hidden="true" />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs font-medium text-muted-foreground mb-0.5">
-                      {link.description}
-                    </p>
-                    <p className="text-sm font-medium text-foreground truncate">
-                      {link.value}
-                    </p>
-                  </div>
-                </a>
-              );
-            })}
-
-            {/* Direct email CTA */}
-            <div className="mt-6 pt-6 border-t border-border">
-              <a
-                href={`mailto:${siteConfig.email}?subject=Let's work together`}
-                className="press w-full inline-flex items-center justify-center gap-2 min-h-11 px-6 py-3.5 bg-accent hover:bg-accent-hover text-accent-foreground font-semibold rounded-xl text-sm"
-              >
-                <Mail size={16} aria-hidden="true" />
-                Send me an email
-              </a>
-            </div>
-          </div>
+          <ContactForm email={siteConfig.email} />
         </div>
       </div>
     </section>

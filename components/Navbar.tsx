@@ -7,9 +7,8 @@ import { siteConfig } from "@/lib/data";
 
 const navLinks = [
   { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
+  { href: "#experience", label: "Work" },
   { href: "#projects", label: "Projects" },
-  { href: "#skills", label: "Skills" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -70,10 +69,14 @@ export default function Navbar() {
         <a
           href="#top"
           onClick={() => setIsOpen(false)}
-          className="-ml-2 inline-flex items-center justify-center size-11 font-display font-extrabold text-lg text-foreground hover:text-accent transition-colors duration-150 rounded-lg"
-          aria-label="SH, back to top"
+          className="inline-flex items-center min-h-11 text-sm font-medium leading-tight text-foreground hover:text-accent transition-colors duration-150"
+          aria-label={`${siteConfig.name}, back to top`}
         >
-          SH
+          <span>
+            Santiago
+            <br />
+            Herrera
+          </span>
         </a>
 
         <ul className="hidden md:flex items-center gap-2 lg:gap-4" role="list">
@@ -113,10 +116,10 @@ export default function Navbar() {
             </a>
           )}
           <a
-            href={`mailto:${siteConfig.email}`}
-            className="press inline-flex items-center min-h-11 px-4 text-sm font-semibold bg-accent hover:bg-accent-hover text-accent-foreground rounded-lg"
+            href="#contact"
+            className="press inline-flex items-center min-h-10 px-5 text-sm font-semibold bg-foreground text-background rounded-full"
           >
-            Hire me
+            Contact
           </a>
         </div>
 
@@ -164,11 +167,11 @@ export default function Navbar() {
                   </a>
                 )}
                 <a
-                  href={`mailto:${siteConfig.email}`}
+                  href="#contact"
                   className="press flex items-center justify-center min-h-11 text-sm font-semibold bg-accent hover:bg-accent-hover text-accent-foreground rounded-lg"
                   onClick={() => setIsOpen(false)}
                 >
-                  Hire me
+                  Contact
                 </a>
               </li>
             </ul>

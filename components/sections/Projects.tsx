@@ -6,32 +6,57 @@ import SpotlightCard from "@/components/ui/SpotlightCard";
 import Illustration from "@/components/ui/Illustration";
 import LazyVideo from "@/components/ui/LazyVideo";
 import { projects as allProjects, projectsIntro, type Project } from "@/lib/data";
+import RevealWords from "@/components/ui/RevealWords";
+import SectionLabel from "@/components/ui/SectionLabel";
+import { slugify } from "@/lib/slug";
 
-function ProjectScreenshot({ project }: { project: Project }) {
+function hostOf(url?: string) {
+  if (!url) return null;
+  try {
+    return new URL(url).host.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
+}
+
+function ProjectScreenshot({ project, featured }: { project: Project; featured?: boolean }) {
+  const host = hostOf(project.links.live);
+  let media: React.ReactNode;
   if (project.video) {
+    media = <LazyVideo {...project.video} label={`${project.title} preview`} />;
+  } else if (project.screenshot) {
+    media = (
+      <Image
+        src={project.screenshot}
+        alt={`${project.title} preview`}
+        fill
+        sizes={featured ? "(min-width: 1152px) 1104px, 100vw" : "(min-width: 768px) 50vw, 100vw"}
+        className="object-cover object-top"
+      />
+    );
+  } else {
     return (
-      <div className="relative h-48 w-full overflow-hidden border-b border-border">
-        <LazyVideo {...project.video} label={`${project.title} preview`} />
+      <div className="h-24 md:h-32 flex items-center justify-center gap-2 border-b border-border bg-background/40 text-xs text-muted-foreground">
+        <ImageIcon size={16} aria-hidden="true" />
+        Screenshot coming soon
       </div>
     );
   }
-  if (project.screenshot) {
-    return (
-      <div className="relative h-48 w-full overflow-hidden border-b border-border">
-        <Image
-          src={project.screenshot}
-          alt={`${project.title} preview`}
-          fill
-          sizes="(min-width: 768px) 50vw, 100vw"
-          className="object-cover"
-        />
-      </div>
-    );
+
+  if (!featured) {
+    return <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border">{media}</div>;
   }
   return (
-    <div className="h-24 md:h-32 flex items-center justify-center gap-2 border-b border-border bg-background/40 text-xs text-muted-foreground">
-      <ImageIcon size={16} aria-hidden="true" />
-      Screenshot coming soon
+    <div className="p-3 md:p-4 pb-0 md:pb-0">
+      <div className="shot-in overflow-hidden rounded-t-xl border border-b-0 border-border bg-background">
+        <div className="flex items-center gap-2 h-8 px-3 border-b border-border bg-surface-elevated/60" aria-hidden="true">
+          <span className="size-2.5 rounded-full bg-border" />
+          <span className="size-2.5 rounded-full bg-border" />
+          <span className="size-2.5 rounded-full bg-border" />
+          {host && <span className="ml-3 font-mono text-[11px] text-muted-foreground truncate">{host}</span>}
+        </div>
+        <div className="relative aspect-[2/1] w-full">{media}</div>
+      </div>
     </div>
   );
 }
@@ -138,11 +163,14 @@ export default function Projects({ items = allProjects }: { items?: Project[] })
   return (
     <section id="projects" className="py-24 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="mb-14">
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-3">
-            Selected work
-          </h2>
-          <p className="text-muted-foreground max-w-xl">{projectsIntro}</p>
+        <div className="mb-14 grid grid-cols-1 md:grid-cols-[1fr_1.3fr] gap-6 md:gap-16 items-end">
+          <div>
+            <SectionLabel>Projects</SectionLabel>
+            <h2 className="mt-4 font-mono font-medium text-foreground tracking-[-0.04em] leading-none text-5xl md:text-7xl">
+              <RevealWords text="Selected work" />
+            </h2>
+          </div>
+          <p className="text-muted-foreground max-w-xl md:justify-self-end">{projectsIntro}</p>
         </div>
 
         {featuredProjects.length === 0 && otherProjects.length === 0 && (
@@ -150,17 +178,21 @@ export default function Projects({ items = allProjects }: { items?: Project[] })
         )}
 
         <div className="space-y-8">
-          {featuredProjects.map((project) => (
+          {featuredProjects.map((project, index) => (
             <SpotlightCard
               key={project.title}
-              className="bg-surface rounded-2xl border border-border"
+              id={slugify(project.title)}
+              className="scroll-mt-24 bg-surface/80 rounded-3xl border border-border"
             >
-              <ProjectScreenshot project={project} />
+              <ProjectScreenshot project={project} featured />
 
-              <div className="p-6 lg:p-8 break-words">
+              <div className="p-6 lg:p-8 break-words border-t border-border">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-8">
                   <div className="min-w-0">
-                    <h3 className="font-display text-2xl font-bold text-foreground break-words">
+                    <p className="font-mono text-xs font-medium text-accent mb-2 tabular">
+                      {String(index + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="font-mono font-medium text-2xl md:text-3xl text-foreground tracking-[-0.02em] break-words">
                       {project.title}
                     </h3>
                     {project.subtitle && (
@@ -218,18 +250,19 @@ export default function Projects({ items = allProjects }: { items?: Project[] })
 
         {otherProjects.length > 0 && (
           <div className="mt-16">
-            <h3 className="font-display text-xl font-bold text-foreground mb-6">Other projects</h3>
+            <h3 className="font-mono font-medium text-3xl md:text-4xl text-foreground tracking-[-0.03em] mb-6">More work</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {otherProjects.map((project) => (
                 <SpotlightCard
                   key={project.title}
-                  className="bg-surface rounded-2xl border border-border"
+                  id={slugify(project.title)}
+                  className="scroll-mt-24 bg-surface/80 rounded-3xl border border-border"
                 >
                   <ProjectScreenshot project={project} />
                   <div className="p-6 break-words">
                     <div className="flex items-start justify-between gap-3 mb-2">
                       <div className="min-w-0">
-                        <h4 className="font-display text-lg font-bold text-foreground break-words">
+                        <h4 className="font-mono font-medium text-lg text-foreground break-words">
                           {project.title}
                         </h4>
                         {project.subtitle && (

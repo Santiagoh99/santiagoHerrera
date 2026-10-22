@@ -9,15 +9,18 @@ import { useRef } from "react";
 // container, which freezes the scroll-driven diagram animations inside it.
 export default function SpotlightCard({
   className = "",
+  id,
   children,
 }: {
   className?: string;
+  id?: string;
   children: React.ReactNode;
 }) {
   const light = useRef<HTMLDivElement>(null);
 
   return (
     <article
+      id={id}
       className={`spotlight-host relative isolate overflow-clip ${className}`}
       onPointerMove={(e) => {
         if (e.pointerType !== "mouse" || !light.current) return;

@@ -1,11 +1,12 @@
 import { skillCategories } from "@/lib/data";
+import RevealWords from "@/components/ui/RevealWords";
 
 export default function Skills() {
   return (
     <section id="skills" className="py-24 border-t border-border">
       <div className="max-w-6xl mx-auto px-6">
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-12">
-          Tech stack
+        <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-12">
+          <RevealWords text="Tech stack" />
         </h2>
 
         <dl className="divide-y divide-border border-y border-border">

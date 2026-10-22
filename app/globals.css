@@ -49,6 +49,13 @@
 
   body {
     background-color: var(--background);
+    /* Warm, not flat black: an amber haze up top and an umber floor, fixed so
+       sections scroll over it. Grain sits on top via body::after. */
+    background-image:
+      radial-gradient(1200px 700px at 85% -10%, rgba(255, 178, 36, 0.10), transparent 60%),
+      radial-gradient(900px 600px at -10% 40%, rgba(120, 72, 28, 0.16), transparent 65%),
+      linear-gradient(180deg, transparent 55%, rgba(58, 36, 16, 0.35) 100%);
+    background-attachment: fixed;
     color: var(--foreground);
     font-family: var(--font-sans), sans-serif;
     font-size: 16px;
@@ -235,4 +242,157 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .press:active { transform: none; }
+}
+
+
+/* ── Session 7: identity layer ─────────────────────────────────────────── */
+
+/* Film grain over the whole page (static SVG noise, never animated). */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Hero: faint column grid + a warm glow that follows the pointer. */
+.hero-grid {
+  background-image: linear-gradient(to right, rgba(68, 64, 60, 0.28) 1px, transparent 1px);
+  background-size: calc(100% / 6) 100%;
+  -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
+  mask-image: linear-gradient(to bottom, black 30%, transparent 90%);
+}
+.cursor-glow {
+  --gx: 80%;
+  --gy: 30%;
+  background: radial-gradient(520px circle at var(--gx) var(--gy), rgba(255, 178, 36, 0.11), transparent 70%);
+}
+
+/* Availability dot. */
+@media (prefers-reduced-motion: no-preference) {
+  .status-ping { animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite; }
+}
+@keyframes ping {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Marquee of project names: slow loop, pauses on hover, static with reduced motion. */
+.marquee {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track { animation: marquee 45s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* Hero entrance: chips pop in after the name; photo settles in. */
+@media (prefers-reduced-motion: no-preference) {
+  .chip-in {
+    animation: chip-in 420ms var(--ease-out) both;
+    animation-delay: calc(520ms + var(--i, 0) * 45ms);
+  }
+  .photo-in { animation: photo-in 900ms var(--ease-out) 200ms both; }
+}
+@keyframes chip-in {
+  from { transform: translateY(8px) scale(0.96); opacity: 0; }
+}
+@keyframes photo-in {
+  from { transform: translateY(16px) scale(0.97); filter: blur(6px); }
+}
+
+/* Intro loader (components/IntroLoader.tsx). Once per session; CSS-only so it
+   can't get stuck. Repeat visits and reduced motion get `intro-skip`. */
+.intro-skip .intro { display: none; }
+.intro { animation: intro-out 550ms var(--ease-in-out) 1450ms forwards; }
+.intro-bar { animation: intro-bar 1300ms var(--ease-out) both; }
+.intro-word { animation: assemble 700ms var(--ease-out) both; animation-delay: calc(150ms + var(--i, 0) * 110ms); }
+.intro-stack { animation: wipe 600ms var(--ease-out) 500ms both; }
+@keyframes intro-bar {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+@keyframes intro-out {
+  to { opacity: 0; visibility: hidden; }
+}
+/* While the intro is up, hold the hero entrance so it plays as the overlay lifts. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.intro-skip) .assemble-word { animation-delay: calc(1450ms + var(--i, 0) * 90ms); }
+  html:not(.intro-skip) .assemble-wipe { animation-delay: 1700ms; }
+  html:not(.intro-skip) .chip-in { animation-delay: calc(1900ms + var(--i, 0) * 45ms); }
+  html:not(.intro-skip) .photo-in { animation-delay: 1600ms; }
+}
+
+/* Section titles rise word by word as they scroll in (components/ui/RevealWords.tsx). */
+.reveal-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; }
+.reveal-word { display: inline-block; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-word {
+      animation: word-rise linear both;
+      animation-timeline: view();
+      animation-range: entry calc(10% + var(--i, 0) * 4%) entry calc(70% + var(--i, 0) * 4%);
+    }
+  }
+}
+@keyframes word-rise {
+  from { transform: translateY(105%); }
+}
+
+/* Project screenshots scale up and sharpen as they enter. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .shot-in {
+      animation: shot-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+  }
+}
+@keyframes shot-in {
+  from { transform: scale(0.94); filter: blur(4px); opacity: 0.6; }
+}
+
+/* ── Session 7b: reference direction (mono display, work table, carousel) ── */
+
+/* Work table rows invert on hover/focus, like a selected row. */
+.work-summary::-webkit-details-marker { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .work-row:not([open]) > .work-summary:hover { background-color: var(--foreground); color: var(--background); }
+}
+.work-row:not([open]) > .work-summary:focus-visible { outline-offset: -2px; background-color: var(--foreground); color: var(--background); }
+.work-row[open] > .work-summary { background-color: var(--surface); color: var(--foreground); }
+
+/* Hero carousel: native scroll, no visible scrollbar, edges fade out. */
+.carousel { scrollbar-width: none; -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent); mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent); }
+.carousel::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .carousel { scroll-behavior: smooth; }
+  .carousel-card { transition: transform 300ms var(--ease-out), border-color 200ms ease; }
+  .carousel-card:hover { transform: translateY(-4px); }
+}
+
+/* Outline circles drift very slowly. */
+@media (prefers-reduced-motion: no-preference) {
+  .deco-ring { animation: ring-drift 18s ease-in-out infinite alternate; }
+}
+@keyframes ring-drift {
+  to { transform: translate3d(-24px, 18px, 0) scale(1.03); }
+}
+
+/* Skill boxes pop in as the grid scrolls into view. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .skill-box {
+      animation: chip-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
 }

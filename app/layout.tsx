@@ -1,33 +1,41 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import MotionProvider from "@/components/MotionProvider";
+import IntroLoader from "@/components/IntroLoader";
 import { siteConfig } from "@/lib/data";
 import "./globals.css";
 
-// Display: Archivo with its width axis (expanded via `.font-display`).
+// Fonts are self-hosted (files in app/fonts, from Fontsource) so the build never
+// depends on reaching Google Fonts.
+// Display: Archivo variable (weight + width axes, expanded via `.font-display`).
 // Must stay preloaded: the expanded face is far wider than any fallback, so a
 // late swap re-flows the hero (CLS 0.24 measured without the preload).
-const archivo = Archivo({
-  subsets: ["latin"],
-  axes: ["wdth"],
+const archivo = localFont({
+  src: "./fonts/archivo-variable.woff2",
+  weight: "100 900",
   variable: "--font-display",
   display: "swap",
+  declarations: [{ prop: "font-stretch", value: "62% 125%" }],
 });
 
-const plexSans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const plexSans = localFont({
+  src: [
+    { path: "./fonts/ibm-plex-sans-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/ibm-plex-sans-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/ibm-plex-sans-latin-600-normal.woff2", weight: "600", style: "normal" },
+  ],
   variable: "--font-sans",
   display: "swap",
 });
 
-// Mono is for data only: dates, stack names, diagram labels. Nothing above the fold uses it.
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
+// Mono carries the display headings ("Full-stack / Developer", "Work"), so it is preloaded.
+const plexMono = localFont({
+  src: [
+    { path: "./fonts/ibm-plex-mono-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/ibm-plex-mono-latin-500-normal.woff2", weight: "500", style: "normal" },
+  ],
   variable: "--font-mono",
   display: "swap",
-  preload: false,
 });
 
 const title = `${siteConfig.name} — ${siteConfig.role}`;
@@ -81,8 +89,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable}`}>
+    <html lang="en" className={`${archivo.variable} ${plexSans.variable} ${plexMono.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Runs before first paint: the intro plays once per session and never under reduced motion. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var d=document.documentElement;if(sessionStorage.getItem("intro-seen")||matchMedia("(prefers-reduced-motion: reduce)").matches){d.classList.add("intro-skip")}else{sessionStorage.setItem("intro-seen","1")}}catch(e){document.documentElement.classList.add("intro-skip")}`,
+          }}
+        />
+      </head>
       <body>
+        <IntroLoader />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-3 focus:rounded-lg focus:bg-accent focus:text-accent-foreground"
