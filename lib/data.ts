@@ -30,7 +30,7 @@ export const about = {
     "Checkouts, ticket deposits, reservations, investment platform features. I care that it works the day it launches and keeps working after.",
     "Today I build for a **bank's investment platform in Argentina** and for a **professional soccer club in the U.S.**, remotely and in English, plus SaaS products for restaurants and sports venues.",
     "Before that, and alongside it: **React Native mobile apps**, e-commerce for independent brands and internal tools. Lately I'm adding data engineering to the stack: ingestion pipelines with Hive and AWS, Power BI and Grafana.",
-    "I build AI features as part of the normal stack: LLM parsing with Gemini and Zod-validated output, and agentic workflows with Claude Code.",
+    "I build AI features as part of the normal stack: LLM parsing with Gemini and Zod-validated output, and agentic development every day with Claude Code (custom agents, MCP servers and skills) and Devin, an AI software engineer my team at Santander works with.",
   ],
   highlightsTitle: "What I bring",
   highlights: [
