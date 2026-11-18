@@ -30,7 +30,7 @@ export const about = {
     "Checkouts, ticket deposits, reservations, investment platform features. I care that it works the day it launches and keeps working after.",
     "Today I build for a **bank's investment platform in Argentina** and for a **professional soccer club in the U.S.**, remotely and in English, plus SaaS products for restaurants and sports venues.",
     "Before that, and alongside it: **React Native mobile apps**, e-commerce for independent brands and internal tools. Lately I'm adding data engineering to the stack: ingestion pipelines with Hive and AWS, Power BI and Grafana.",
-    "I build AI features as part of the normal stack: LLM parsing with Gemini and Zod-validated output, and agentic development every day with Claude Code (custom agents, MCP servers and skills) and Devin, an AI software engineer my team at Santander works with.",
+    "I build AI features as part of the normal stack: LLM parsing with Gemini and Zod-validated output, and agentic development every day with Claude Code (custom agents, MCP servers and skills) and Devin (Cognition), the AI software engineer my team works with every day.",
   ],
   highlightsTitle: "What I bring",
   highlights: [
@@ -46,6 +46,29 @@ export const about = {
     detail: "Universidad Abierta Interamericana · 2019–2022",
   },
   languages: "Spanish (native) · English (professional working proficiency)",
+};
+
+// AI section: only things Santiago has stated or built. Keep it factual.
+export const aiWork = {
+  heading: "AI is part of how I build.",
+  intro:
+    "I treat an LLM like any other external service: its output gets validated and its failures get handled.",
+  groups: [
+    {
+      title: "Building with AI",
+      items: [
+        "LLM parsing in production: Fecalpo turns free-form WhatsApp text and voice messages into Zod-validated structured data with the Gemini API",
+        "Cost and reliability by design: regex shortcuts skip the LLM for common intents; retries with backoff and a fallback model handle rate limits",
+      ],
+    },
+    {
+      title: "Working with AI",
+      items: [
+        "Claude Code every day: custom agents, MCP servers and my own skills for code audits, prototypes, automations and per-project context docs",
+        "Devin (Cognition) in the team at work: an AI software engineer we hand routine tasks, error handling and documentation",
+      ],
+    },
+  ],
 };
 
 export const contact = {
@@ -69,6 +92,17 @@ export type ExperienceItem = {
 };
 
 export const experience: ExperienceItem[] = [
+  {
+    // TODO(Santiago): confirm title, contract type and what you work on; highlights render once filled in.
+    title: "Full Stack Developer",
+    company: "Qubatio",
+    period: "Nov 2026 – Present",
+    type: "full-time",
+    location: "Remote",
+    description: "Joined in November 2026.",
+    highlights: [],
+    tech: [],
+  },
   {
     title: "Website Manager & Full Stack Developer",
     company: "Port St. Lucie SC — USL League One",
@@ -114,6 +148,7 @@ export const experience: ExperienceItem[] = [
       "Used Dynatrace for production monitoring and incident response",
       "Enforced code quality gates with SonarQube and Jest test coverage",
       "Building data ingestion pipelines with Hive and AWS, dashboards with Power BI, monitoring with Grafana",
+      "Work alongside Devin (Cognition), an AI software engineer, in the team's daily workflow: routine tasks, error handling and documentation",
     ],
     tech: [
       "Node.js",
@@ -505,6 +540,21 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Port St. Lucie Stadium",
+    subtitle: "Groundbreaking microsite for the club's future stadium",
+    description:
+      "Microsite for the groundbreaking of the club's 6,000-seat stadium on December 12, 2026: countdown to the first shovel, a free personalized postcard sent by email, a six-stop guided tour of the future stadium, a before/after slider of the site, and a moderated community wall where supporters pin their message.",
+    problem:
+      "The club needed one place to turn the stadium announcement into registrations and community before the groundbreaking event.",
+    // TODO(Santiago): confirm your role here (design and base by the club's design team).
+    role: "Part of the club's web properties I run. Design and base by the club's design team.",
+    keyDecisions: [],
+    tech: ["HTML", "CSS", "JavaScript"],
+    links: { live: "https://stadium.portstluciesc.com" },
+    screenshot: "/img/pslsc-stadium.jpg",
+    featured: false,
+  },
+  {
     title: "Fecalpo",
     subtitle: "AI chatbot on WhatsApp for shared household expenses",
     description:
@@ -667,6 +717,8 @@ export const skillCategories: SkillCategory[] = [
     name: "AI & LLM Engineering",
     skills: [
       "Claude Code",
+      "Devin (Cognition)",
+      "MCP servers",
       "Agentic Dev Workflows",
       "Google Gemini API",
       "Prompt Engineering",
