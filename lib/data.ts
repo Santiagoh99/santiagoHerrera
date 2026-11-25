@@ -313,7 +313,7 @@ export const projects: Project[] = [
     keyDecisions: [],
     tech: ["Next.js", "Vercel"],
     links: { live: "https://atlanticfourtech.com" },
-    // TODO(Santiago): add /img/atlanticfourtech.jpg (live capture) and set screenshot.
+    screenshot: "/img/atlanticfourtech.jpg",
     featured: true,
   },
   {
