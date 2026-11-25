@@ -217,10 +217,12 @@ export default function Projects({ items = allProjects }: { items?: Project[] })
                   </div>
 
                   <div className="lg:col-span-2 space-y-8 min-w-0">
-                    <div>
-                      <Subhead>Key technical decisions</Subhead>
-                      <Bullets items={project.keyDecisions} />
-                    </div>
+                    {project.keyDecisions.length > 0 && (
+                      <div>
+                        <Subhead>Key technical decisions</Subhead>
+                        <Bullets items={project.keyDecisions} />
+                      </div>
+                    )}
                     {project.illustration && <Illustration illustration={project.illustration} />}
                     {project.whatIdChange && project.whatIdChange.length > 0 && (
                       <div>

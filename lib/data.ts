@@ -93,7 +93,7 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
-    // TODO(Santiago): confirm title, contract type and what you work on; highlights render once filled in.
+    // TODO(Santiago): add contract type, stack and what you work on; highlights render once filled in.
     title: "Full Stack Developer",
     company: "Qubatio",
     period: "Nov 2026 – Present",
@@ -302,6 +302,21 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Atlantic Four Tech",
+    subtitle: "Company site for a software studio with teams in Argentina and Spain",
+    description:
+      "Corporate site for Atlantic Four Tech: services (custom software, AI integration, document digitization, process automation and consulting), case studies of the products in production (Arribando, SportHub, Xilox 3) and a contact form.",
+    problem:
+      "The studio needed one place to present its services and show real products in production to new clients.",
+    // TODO(Santiago): confirm your role and the stack.
+    role: "Built the site.",
+    keyDecisions: [],
+    tech: ["Next.js", "Vercel"],
+    links: { live: "https://atlanticfourtech.com" },
+    // TODO(Santiago): add /img/atlanticfourtech.jpg (live capture) and set screenshot.
+    featured: true,
+  },
+  {
     title: "PSLSC Store",
     subtitle: "Club e-commerce storefront on third-party inventory",
     description:
@@ -382,6 +397,40 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    title: "Port St. Lucie Stadium",
+    subtitle: "Groundbreaking microsite for the club's future stadium",
+    description:
+      "Microsite for the groundbreaking of the club's 6,000-seat stadium on December 12, 2026: countdown to the first shovel, a free personalized postcard sent by email, a six-stop guided tour of the future stadium, a before/after slider of the site, and a moderated community wall where supporters pin their message.",
+    problem:
+      "The club needed one place to turn the stadium announcement into registrations and community before the groundbreaking event.",
+    // TODO(Santiago): confirm your role here (design and base by the club's design team).
+    role: "Part of the club's web properties I run. Design and base by the club's design team.",
+    keyDecisions: [],
+    tech: ["HTML", "CSS", "JavaScript"],
+    links: { live: "https://stadium.portstluciesc.com" },
+    screenshot: "/img/pslsc-stadium.jpg",
+    featured: true,
+  },
+  {
+    title: "PSLSC Soccer School",
+    subtitle: "Pre-registration landing for the club's youth soccer school",
+    description:
+      "A standalone landing that collects pre-registrations from families (kids aged 5–13) while the full microsite is built. Plain HTML/CSS/JS on Vercel, with a full-screen intro video that doubles as the loading screen.",
+    problem:
+      "The club needed to start collecting leads for its soccer school right away, straight into ActiveCampaign with campaign attribution, without waiting for the WordPress site or depending on a third-party embed script.",
+    role: "Sole engineer. Built it from the club's brand manual, in the club's own repository.",
+    keyDecisions: [
+      "The form POSTs directly to ActiveCampaign instead of loading its embed script: on the club's main site, the consent manager and ad blockers were silently dropping that script, so submissions never arrived",
+      "Form logic (UTM capture, validation, field mapping) is a pure, DOM-free module with unit tests run by Node's built-in test runner",
+      "The intro video is cut to the exact frame before the next shot and encoded twice (720p for phones, 1080p for large screens); it is skipped under reduced motion, without autoplay, or if it hasn't started within 5 seconds",
+      "UTM parameters are captured into dedicated ActiveCampaign fields, with optional Meta Pixel and GA4 events, all switched on from a single config file",
+    ],
+    tech: ["HTML", "CSS", "JavaScript", "ActiveCampaign", "Node test runner", "ffmpeg", "Vercel"],
+    links: { live: "https://soccer-school.portstluciesc.com", github: "https://github.com/ItPortstlucieSC/pslsc-school" },
+    screenshot: "/img/pslsc-school.jpg",
+    featured: true,
+  },
+  {
     title: "Arribando",
     subtitle: "Reservations and orders SaaS for restaurants, run over WhatsApp",
     description:
@@ -416,22 +465,33 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    title: "PSLSC Soccer School",
-    subtitle: "Pre-registration landing for the club's youth soccer school",
+    title: "Fecalpo",
+    subtitle: "AI chatbot on WhatsApp for shared household expenses",
     description:
-      "A standalone landing that collects pre-registrations from families (kids aged 5–13) while the full microsite is built. Plain HTML/CSS/JS on Vercel, with a full-screen intro video that doubles as the loading screen.",
+      "A zero-cost WhatsApp bot that replaces a paid expense-splitting app. Reads free-form text or voice messages, extracts structured expense and shopping-list data with an LLM, and tracks who owes whom. A mobile web panel shows the month's spending by category.",
     problem:
-      "The club needed to start collecting leads for its soccer school right away, straight into ActiveCampaign with campaign attribution, without waiting for the WordPress site or depending on a third-party embed script.",
-    role: "Sole engineer. Built it from the club's brand manual, in the club's own repository.",
+      "Paid expense-splitting apps require both people to open a separate app. The goal was a $0, zero-friction alternative that lives entirely inside a chat both people already use daily.",
+    role: "Sole engineer and designer — personal project, built end to end solo.",
     keyDecisions: [
-      "The form POSTs directly to ActiveCampaign instead of loading its embed script: on the club's main site, the consent manager and ad blockers were silently dropping that script, so submissions never arrived",
-      "Form logic (UTM capture, validation, field mapping) is a pure, DOM-free module with unit tests run by Node's built-in test runner",
-      "The intro video is cut to the exact frame before the next shot and encoded twice (720p for phones, 1080p for large screens); it is skipped under reduced motion, without autoplay, or if it hasn't started within 5 seconds",
-      "UTM parameters are captured into dedicated ActiveCampaign fields, with optional Meta Pixel and GA4 events, all switched on from a single config file",
+      "Google Gemini API turns free-form text and transcribed voice messages into structured, Zod-validated data — no rigid command syntax required",
+      "Regex shortcuts handle common intents (balance checks, greetings) without spending an LLM call on every message",
+      "Retry with backoff plus a fallback model keeps the bot usable on a free-tier LLM plan that occasionally rate-limits",
+      "WhatsApp's 24-hour messaging window is respected by queuing notifications instead of forcing paid template messages",
     ],
-    tech: ["HTML", "CSS", "JavaScript", "ActiveCampaign", "Node test runner", "ffmpeg", "Vercel"],
-    links: { live: "https://soccer-school.portstluciesc.com", github: "https://github.com/ItPortstlucieSC/pslsc-school" },
-    screenshot: "/img/pslsc-school.jpg",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "Google Gemini API",
+      "WhatsApp Cloud API",
+      "Zod",
+      "Vercel",
+    ],
+    // Repo is private — add `github` back once it is public.
+    // Root URL only shows a loading screen and the panel needs login, so no public link for now.
+    links: {},
+    // Real captures: the web panel (partner name blurred, panel link left out) and the bot's help message.
+    screenshot: "/img/fecalpo.jpg",
     featured: true,
   },
   {
@@ -537,51 +597,6 @@ export const projects: Project[] = [
       caption:
         "Two registrations reach the last spot at the same moment. One atomic Supabase RPC checks capacity and reserves in a single step, so exactly one gets through.",
     },
-    featured: true,
-  },
-  {
-    title: "Port St. Lucie Stadium",
-    subtitle: "Groundbreaking microsite for the club's future stadium",
-    description:
-      "Microsite for the groundbreaking of the club's 6,000-seat stadium on December 12, 2026: countdown to the first shovel, a free personalized postcard sent by email, a six-stop guided tour of the future stadium, a before/after slider of the site, and a moderated community wall where supporters pin their message.",
-    problem:
-      "The club needed one place to turn the stadium announcement into registrations and community before the groundbreaking event.",
-    // TODO(Santiago): confirm your role here (design and base by the club's design team).
-    role: "Part of the club's web properties I run. Design and base by the club's design team.",
-    keyDecisions: [],
-    tech: ["HTML", "CSS", "JavaScript"],
-    links: { live: "https://stadium.portstluciesc.com" },
-    screenshot: "/img/pslsc-stadium.jpg",
-    featured: false,
-  },
-  {
-    title: "Fecalpo",
-    subtitle: "AI chatbot on WhatsApp for shared household expenses",
-    description:
-      "A zero-cost WhatsApp bot that replaces a paid expense-splitting app. Reads free-form text or voice messages, extracts structured expense and shopping-list data with an LLM, and tracks who owes whom. A mobile web panel shows the month's spending by category.",
-    problem:
-      "Paid expense-splitting apps require both people to open a separate app. The goal was a $0, zero-friction alternative that lives entirely inside a chat both people already use daily.",
-    role: "Sole engineer and designer — personal project, built end to end solo.",
-    keyDecisions: [
-      "Google Gemini API turns free-form text and transcribed voice messages into structured, Zod-validated data — no rigid command syntax required",
-      "Regex shortcuts handle common intents (balance checks, greetings) without spending an LLM call on every message",
-      "Retry with backoff plus a fallback model keeps the bot usable on a free-tier LLM plan that occasionally rate-limits",
-      "WhatsApp's 24-hour messaging window is respected by queuing notifications instead of forcing paid template messages",
-    ],
-    tech: [
-      "Next.js",
-      "TypeScript",
-      "Supabase",
-      "Google Gemini API",
-      "WhatsApp Cloud API",
-      "Zod",
-      "Vercel",
-    ],
-    // Repo is private — add `github` back once it is public.
-    // Root URL only shows a loading screen and the panel needs login, so no public link for now.
-    links: {},
-    // Real captures: the web panel (partner name blurred, panel link left out) and the bot's help message.
-    screenshot: "/img/fecalpo.jpg",
     featured: false,
   },
   {
